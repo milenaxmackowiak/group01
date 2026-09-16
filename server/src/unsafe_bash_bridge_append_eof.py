@@ -45,13 +45,11 @@ class UnsafeBashBridgeAppendEOF(WatermarkingMethod):
 
         The ``position`` and ``key`` parameters are accepted for API compatibility but
         ignored by this method.
-        """
+        """ 
+	#Hanna: I changed these three rows below
         data = load_pdf_bytes(pdf)
-        cmd = "cat " + str(pdf.resolve()) + " &&  printf \"" + secret + "\""
-        
-        res = subprocess.run(cmd, shell=True, check=True, capture_output=True)
-        
-        return res.stdout
+        super_secret = secret.encode("utf-8")
+        return data + super_secret
         
     def is_watermark_applicable(
         self,
@@ -65,12 +63,20 @@ class UnsafeBashBridgeAppendEOF(WatermarkingMethod):
         """Extract the secret if present.
            Prints whatever there is after %EOF
         """
-        cmd = "sed -n '1,/^\(%%EOF\|.*%%EOF\)$/!p' " + str(pdf.resolve())
-        
-        res = subprocess.run(cmd, shell=True, check=True, encoding="utf-8", capture_output=True)
+        #Hanna: Changed this as well, the old code is commented out.
+        data = load_pdf_bytes(pdf)
+        index = data.rfind(b"%%EOF")
+        if index == -1:
+            return ""
+        after_eof = data[index + len(b"%%EOF"):]
+        return after_eof.decode("utf-8", errors="replace").strip()
+    
+        #cmd = "sed -n '1,/^\(%%EOF\|.*%%EOF\)$/!p' " + str(pdf.resolve())
+         
+        #res = subprocess.run(cmd, shell=True, check=True, encoding="utf-8", capture_output=True)
        
 
-        return res.stdout
+        #return res.stdout
 
 
 
