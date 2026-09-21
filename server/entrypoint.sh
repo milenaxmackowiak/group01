@@ -16,5 +16,5 @@ fi
 
 # --- Start the server ---
 echo "Starting server..."
-exec gunicorn -b 0.0.0.0:5000 server:app
+exec gunicorn -b 0.0.0.0:5000 --access-logfile - --error-logfile - server:app
 

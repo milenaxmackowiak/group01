@@ -10,8 +10,8 @@ dependencies = [
 	"PyMySQL==1.1.2",
 	"SQLAlchemy==2.0.43",
 	"dill==0.4.0",
-	"rmap @ git+https://github.com/nharrand/RMAP.git@v1.0.2"
-
+	"rmap @ git+https://github.com/nharrand/RMAP.git@v1.0.2",
+	"cryptography>=42.0"
 ]
 
 [project.optional-dependencies]
