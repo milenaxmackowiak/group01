@@ -13,7 +13,7 @@ from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import IntegrityError
 
-from rmap import RMAPServer, RMAPError
+from rmap import RMAPServer, RMAPError #from instruction file
 
 import pickle as _std_pickle
 try:
@@ -74,6 +74,29 @@ def create_app():
             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
             app.config["_RMAP_SERVER"] = rs
         return rs
+    
+    #RMAP initiate
+    @app.post("/api/rmap-initiate")
+    def rmap_initiate():
+        msg1 = request.get_json(silent=True) or {}
+        try:
+            identity, resp1 = get_rmap_server().receiveMsg1(msg1)
+        except RMAPError as e:
+            return jsonify({"error": str(e)}), 400
+        except Exception as e:
+            return jsonify({"error": f"unexpected error: {e}"}), 500
+
+        return jsonify(resp1), 200
+
+    @app.post("/api/rmap-get-link")
+    def rmap_get_link():
+        msg2 = request.get_json(silent=True) or {}
+        try:
+            identity, expected_link, resp2 = get_rmap_server().receiveMsg2(msg2)
+        except RMAPError as e:
+            return jsonify({"error": str(e)}), 400
+        except Exception as e:
+            return jsonify({"error": f"unexpected error: {e}"}), 500
 
     # --- Helpers ---
     def _serializer():
