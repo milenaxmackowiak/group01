@@ -13,6 +13,8 @@ from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import IntegrityError
 
+from rmap import RMAPServer, RMAPError
+
 import pickle as _std_pickle
 try:
     import dill as _pickle  # allows loading classes not importable by module path
@@ -37,6 +39,11 @@ def create_app():
     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+    #----add RMAP config values---
+    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
 
     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
 
@@ -53,6 +60,20 @@ def create_app():
             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
             app.config["_ENGINE"] = eng
         return eng
+    
+    # --- RMAP instance ----
+    def get_rmap_server():
+        rs = app.config.get("_RMAP_SERVER")
+        if rs is None:
+            rs = RMAPServer(
+                app.config["RMAP_SERVER_PUB"],
+                app.config["RMAP_SERVER_PRIV"],
+                linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                verbose=False,
+            )
+            rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+            app.config["_RMAP_SERVER"] = rs
+        return rs
 
     # --- Helpers ---
     def _serializer():
@@ -656,70 +677,6 @@ def create_app():
         }), 201
         
         
-    @app.post("/api/load-plugin")
-    @require_auth
-    def load_plugin():
-        """
-        Load a serialized Python class implementing WatermarkingMethod from
-        STORAGE_DIR/files/plugins/<filename>.{pkl|dill} and register it in wm_mod.METHODS.
-        Body: { "filename": "MyMethod.pkl", "overwrite": false }
-        """
-        payload = request.get_json(silent=True) or {}
-        filename = (payload.get("filename") or "").strip()
-        overwrite = bool(payload.get("overwrite", False))
-
-        if not filename:
-            return jsonify({"error": "filename is required"}), 400
-
-        # Locate the plugin in /storage/files/plugins (relative to STORAGE_DIR)
-        storage_root = Path(app.config["STORAGE_DIR"])
-        plugins_dir = storage_root / "files" / "plugins"
-        try:
-            plugins_dir.mkdir(parents=True, exist_ok=True)
-            plugin_path = plugins_dir / filename
-        except Exception as e:
-            return jsonify({"error": f"plugin path error: {e}"}), 500
-
-        if not plugin_path.exists():
-            return jsonify({"error": f"plugin file not found: {safe}"}), 404
-
-        # Unpickle the object (dill if available; else std pickle)
-        try:
-            with plugin_path.open("rb") as f:
-                obj = _pickle.load(f)
-        except Exception as e:
-            return jsonify({"error": f"failed to deserialize plugin: {e}"}), 400
-
-        # Accept: class object, or instance (we'll promote instance to its class)
-        if isinstance(obj, type):
-            cls = obj
-        else:
-            cls = obj.__class__
-
-        # Determine method name for registry
-        method_name = getattr(cls, "name", getattr(cls, "__name__", None))
-        if not method_name or not isinstance(method_name, str):
-            return jsonify({"error": "plugin class must define a readable name (class.__name__ or .name)"}), 400
-
-        # Validate interface: either subclass of WatermarkingMethod or duck-typing
-        has_api = all(hasattr(cls, attr) for attr in ("add_watermark", "read_secret"))
-        if WatermarkingMethod is not None:
-            is_ok = issubclass(cls, WatermarkingMethod) and has_api
-        else:
-            is_ok = has_api
-        if not is_ok:
-            return jsonify({"error": "plugin does not implement WatermarkingMethod API (add_watermark/read_secret)"}), 400
-            
-        # Register the class (not an instance) so you can instantiate as needed later
-        WMUtils.METHODS[method_name] = cls()
-        
-        return jsonify({
-            "loaded": True,
-            "filename": filename,
-            "registered_as": method_name,
-            "class_qualname": f"{getattr(cls, '__module__', '?')}.{getattr(cls, '__qualname__', cls.__name__)}",
-            "methods_count": len(WMUtils.METHODS)
-        }), 201
         
     
     
