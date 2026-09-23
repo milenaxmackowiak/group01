@@ -286,6 +286,16 @@ def create_app():
             return jsonify({"error": "empty filename"}), 400
 
         fname = file.filename
+        
+        # Only accept files that are actually pdf:s
+        if not fname.lower().endswith(".pdf"):
+            return jsonify({"error": "only PDF files are allowed"}), 400
+        
+        pdf_header = file.stream.read(5)
+        file.stream.seek(0)  # reset the stream so the rest of the code can still read/save the full file
+        if pdf_header != b"%PDF-":
+            return jsonify({"error": "file content is not a valid PDF"}), 400
+
 
         user_dir = app.config["STORAGE_DIR"] / "files" / g.user["login"]
         user_dir.mkdir(parents=True, exist_ok=True)
