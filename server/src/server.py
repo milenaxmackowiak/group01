@@ -44,8 +44,11 @@ def create_app():
     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
 
     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+    
+    
 
     # --- DB engine only (no Table metadata) ---
     def db_url() -> str:
@@ -97,6 +100,75 @@ def create_app():
             return jsonify({"error": str(e)}), 400
         except Exception as e:
             return jsonify({"error": f"unexpected error: {e}"}), 500
+        
+    #get the document?
+        document_id = 584
+        with get_engine().connect() as connection:
+            row = connection.execute(
+                text("SELECT id, name, path FROM Documents WHERE id = :id LIMIT 1"),
+                {"id": document_id},
+                ).first()
+            
+        if not row:
+            return jsonify({"error": "document not found"}), 500
+        
+        storage = Path(app.config["STORAGE_DIR"]).resolve()
+        file_path = Path(row.path)
+        if not file_path.is_absolute():
+            file_path=storage/file_path
+        file_path = file_path.resolve()
+        try:
+            file_path.relative_to(storage)
+        except ValueError:
+            return jsonify({"error": "document path invalid"}), 500
+        if not file_path.exists():
+            return jsonify({"error": "file missing"}), 410
+        
+        try:
+            wm_bytes = WMUtils.apply_watermark(
+                pdf=str(file_path),
+                secret=identity,
+                key=app.config["RMAP_WATERMARK_KEY"],
+                method="hanna-watermark",
+                position=None,
+            )
+        except Exception as e:
+            return jsonify({"error": f"watermarking failed: {e}"}), 500
+        
+        dest_dir = file_path.parent / "watermarks"
+        dest_dir.mkdir(parents=True, exist_ok=True)
+
+        candidate = f"{Path(row.name).stem}__{secure_filename(identity)}.pdf"
+        dest_path = dest_dir / candidate
+
+        try:
+            with dest_path.open("wb") as f:
+                f.write(wm_bytes)
+        except Exception as e:
+            return jsonify({"error": f"failed to write watermarked file: {e}"}), 500
+        
+        try:
+            with get_engine().begin() as conn:
+                conn.execute(
+                    text("""
+                        INSERT INTO Versions (documentid, link, intended_for, secret, method, position, path)
+                        VALUES (:documentid, :link, :intended_for, :secret, :method, :position, :path)
+                    """),
+                    {
+                        "documentid": document_id,
+                        "link": expected_link,
+                        "intended_for": identity,
+                        "secret": identity,
+                        "method": "hanna-watermark",
+                        "position": "",
+                        "path": dest_path,
+                    },
+                )
+        except Exception as e:
+            dest_path.unlink(missing_ok=True)
+            return jsonify({"error": f"database error during version insert: {e}"}), 503
+
+        return jsonify(resp2), 200
 
     # --- Helpers ---
     def _serializer():
