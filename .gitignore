@@ -209,3 +209,4 @@ server/server_priv.asc
 server/manual_test.py
 server/test_sample.pdf
 server/test_watermarked.pdf
+server/test_stripped.pdf
