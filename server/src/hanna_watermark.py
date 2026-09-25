@@ -56,6 +56,12 @@ class HannaWatermark(WatermarkingMethod):
         watermark_text = _WATER_MARKER_TAG + enc_secret.decode("utf-8")
         #insert text
         page_one.insert_text((10,10),watermark_text, fontsize=1, render_mode=3,)
+        #open metadata
+        metadata = pdf_document.metadata or {}
+        #use keywords field since it is a field that exists
+        metadata["keywords"] = _WATER_MARKER_TAG + enc_secret.decode("utf-8")
+        #sets the updated metadata 
+        pdf_document.set_metadata(metadata)
         #write it to document and close it and return it
         result=pdf_document.write()
         pdf_document.close()
@@ -69,17 +75,23 @@ class HannaWatermark(WatermarkingMethod):
         pdf_bytes = load_pdf_bytes(pdf)
         pdf_document = pymupdf.open(stream=pdf_bytes, filetype="pdf")
         
-        #get the first page
         page_one = pdf_document[0]
         page_text = page_one.get_text()
-        
-        #find where watermark starts
+       #find where watermark starts in the visible/invisible text
         wm_index = page_text.find(_WATER_MARKER_TAG)
-        if wm_index==-1:
-            raise ValueError("Watermark not found")
-        #remove the tag and just return the secret
-        wm_start= wm_index+len(_WATER_MARKER_TAG)
-        encrypted_part = page_text[wm_start:].strip()
+        if wm_index != -1:
+            #found it in the page text
+            wm_start = wm_index + len(_WATER_MARKER_TAG)
+            encrypted_part = page_text[wm_start:].strip()
+        else:
+            #fallback: text watermark missing (maybe stripped), check metadata instead
+            metadata = pdf_document.metadata or {}
+            keywords = metadata.get("keywords", "")
+            meta_index = keywords.find(_WATER_MARKER_TAG)
+            if meta_index == -1:
+                raise SecretNotFoundError("Watermark not found in text or metadata")
+            meta_start = meta_index + len(_WATER_MARKER_TAG)
+            encrypted_part = keywords[meta_start:].strip()
         
         #Call helper method to change key to fernet key format
         fernet_key = self._return_fernet_key(key)
