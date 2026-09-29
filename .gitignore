@@ -211,3 +211,7 @@ server/test_sample.pdf
 server/test_watermarked.pdf
 server/test_stripped.pdf
 server/testclient_priv.asc
+server/rmap_test_client.py
+server/server_pub.asc
+server/testclient_priv.asc
+server/test_delivered.pdf
