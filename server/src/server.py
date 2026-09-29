@@ -569,7 +569,8 @@ def create_app():
 
     # DELETE /api/delete-document  (and variants)
     @app.route("/api/delete-document", methods=["DELETE", "POST"])  # POST supported for convenience
-    @app.route("/api/delete-document/<document_id>", methods=["DELETE"])
+    @app.route("/api/delete-document/<int:document_id>", methods=["DELETE"])
+    @require_auth
     def delete_document(document_id: int | None = None):
         # accept id from path, query (?id= / ?documentid=), or JSON body on POST
         if not document_id:
@@ -579,15 +580,17 @@ def create_app():
                 or (request.is_json and (request.get_json(silent=True) or {}).get("id"))
             )
         try:
-            doc_id = document_id
+            doc_id = int(document_id) #add so that the id is an int
         except (TypeError, ValueError):
             return jsonify({"error": "document id required"}), 400
 
         # Fetch the document (enforce ownership)
         try:
             with get_engine().connect() as conn:
-                query = "SELECT * FROM Documents WHERE id = " + doc_id
-                row = conn.execute(text(query)).first()
+                row = conn.execute(
+                    text("SELECT id, path FROM Documents WHERE id = :id AND ownerid = :ownerid LIMIT 1"),
+                    {"id": doc_id, "ownerid": int(g.user["id"])},
+                ).first()
         except Exception as e:
             return jsonify({"error": f"database error: {str(e)}"}), 503
 
@@ -622,7 +625,12 @@ def create_app():
                 # If your schema does NOT have ON DELETE CASCADE on Version.documentid,
                 # uncomment the next line first:
                 # conn.execute(text("DELETE FROM Version WHERE documentid = :id"), {"id": doc_id})
-                conn.execute(text("DELETE FROM Documents WHERE id = :id"), {"id": doc_id})
+                
+                conn.execute(
+                    text("DELETE FROM Documents WHERE id = :id AND ownerid = :ownerid"),
+                    {"id": doc_id, "ownerid": int(g.user["id"])},
+                )
+                #conn.execute(text("DELETE FROM Documents WHERE id = :id"), {"id": doc_id})
         except Exception as e:
             return jsonify({"error": f"database error during delete: {str(e)}"}), 503
 
