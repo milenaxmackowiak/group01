@@ -1,0 +1,36 @@
+# Should run the server's pytest suite automatically on every push and pull request (fingers crossed_lol)
+
+name: tests
+
+on:
+  push:
+    branches: ["**"]       # every branch, so a broken change is caught before merging
+  pull_request:
+  workflow_dispatch:       # adds a "Run workflow" button in the Actions tab
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server   # pyproject.toml and test/ live here
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"    # match the version in server/Dockerfile
+          cache: pip
+          cache-dependency-path: server/pyproject.toml   # cache key; there is no requirements.txt
+
+      - name: Install the server with its dev extra (includes pytest)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run the test suite
+        # -o addopts="" clears the -q from pyproject.toml, which would otherwise cancel -v
+        run: python -m pytest -o addopts="" -v -rs
