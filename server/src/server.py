@@ -1,4 +1,5 @@
 import os
+import re
 import io
 import hashlib
 import datetime as dt
@@ -230,6 +231,8 @@ def create_app():
         password = payload.get("password") or ""
         if not email or not login or not password:
             return jsonify({"error": "email, login, and password are required"}), 400
+        if not re.fullmatch(r"[A-Za-z0-9_-]{1,64}", login):
+            return jsonify({"error": "Username can only contain letters,numbers, underscores and hyphens"}), 400
 
         hpw = generate_password_hash(password)
 
