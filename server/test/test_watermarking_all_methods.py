@@ -25,13 +25,15 @@ if not CASES:
 # --------- fixtures ----------
 @pytest.fixture(scope="session")
 def sample_pdf_path(tmp_path_factory) -> Path:
-    """Minimal but recognizable PDF bytes."""
+    """Minimal but recognizable PDF bytes. We added a page so that it works on our watermarking methods"""
+    import pymupdf
     pdf = tmp_path_factory.mktemp("pdfs") / "sample.pdf"
-    pdf.write_bytes(
-        b"%PDF-1.4\n"
-        b"1 0 obj\n<< /Type /Catalog >>\nendobj\n"
-        b"%%EOF\n"
-    )
+    document = pymupdf.open()
+    page = document.new_page()
+    text = "The cat (Felis catus), also called domestic cat and house cat, is a small domesticated carnivorous mammal. It is a member of Felidae, the family of mammals in the order Carnivora also colloquially referred to as cats./wikipedia"
+    page.insert_text((72,72),text)
+    pdf.write_bytes(document.tobytes())
+    document.close()
     return pdf
 
 @pytest.fixture(scope="session")

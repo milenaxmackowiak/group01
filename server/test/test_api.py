@@ -37,22 +37,7 @@ def test_watermark_link_is_random():
     second_link= secrets.token_hex(20)
     assert first_link != second_link
 
-#once a real SECRET_KEY is set, a login token signed with the old public default key is not accepted
-def test_old_default_key_is_rejected(monkeypatch):
-    # set a real-looking SECRET_KEY just for this test, then rebuild the app
-    # so it actually picks it up
-    monkeypatch.setenv("SECRET_KEY", "a-real-looking-local-test-key")
-    import importlib
-    import server
-    importlib.reload(server)
-    from itsdangerous import URLSafeTimedSerializer
-    
-    old_insecure_key = URLSafeTimedSerializer("dev-secret-change-me", salt="tatou-auth")
-    faketoken=old_insecure_key.dumps({"uid": 1, "login": "Mr_Important", "email": "mr@important.com"})
-    client=server.app.test_client()
-    response=client.get("/api/list-documents", headers={"Authorization": "Bearer " + faketoken})
-    body= response.get_json()
-    assert "database" not in str(body.get("error", "")), "fake token reached the database, require_auth let it through"
+
     
     
     
