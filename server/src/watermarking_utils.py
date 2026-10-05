@@ -45,6 +45,7 @@ from add_after_eof import AddAfterEOF
 from unsafe_bash_bridge_append_eof import UnsafeBashBridgeAppendEOF
 from hanna_watermark import HannaWatermark
 from niclas_watermark import NiclasWatermark
+from milena_watermark import WatermarkMilena
 
 # --------------------
 # Method registry
@@ -55,6 +56,7 @@ METHODS: Dict[str, WatermarkingMethod] = {
     UnsafeBashBridgeAppendEOF.name: UnsafeBashBridgeAppendEOF(),
     HannaWatermark.name: HannaWatermark(),
     NiclasWatermark.name: NiclasWatermark(),
+    WatermarkMilena.name: WatermarkMilena(),
 }
 """Registry of available watermarking methods.
 
