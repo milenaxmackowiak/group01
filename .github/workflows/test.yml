@@ -33,4 +33,6 @@ jobs:
 
       - name: Run the test suite
         # -o addopts="" clears the -q from pyproject.toml, which would otherwise cancel -v
+        env:
+          SECRET_KEY: ci-test-secret-key-not-used-anywhere-real
         run: python -m pytest -o addopts="" -v -rs

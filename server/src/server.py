@@ -32,7 +32,10 @@ def create_app():
     app = Flask(__name__)
 
     # --- Config ---
-    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-change-me")
+    secret_key = os.environ.get("SECRET_KEY", "").strip()
+    if not secret_key or secret_key == "dev-secret-change-me":
+        raise RuntimeError("Set SECRET_KEY to a random value")
+    app.config["SECRET_KEY"] = secret_key
     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
 
@@ -113,6 +116,15 @@ def create_app():
             
         if not row:
             return jsonify({"error": "document not found"}), 500
+        
+    #refuse if this rmap link has already been used...
+        with get_engine().connect() as connection:
+            existing_link = connection.execute(
+                text("SELECT 1 FROM Versions WHERE link = :link LIMIT 1"),
+                {"link": expected_link},
+                ).first()
+        if existing_link:
+            return jsonify({"error": "RMAP session already completed"}), 409
         
         storage = Path(app.config["STORAGE_DIR"]).resolve()
         file_path = Path(row.path)
