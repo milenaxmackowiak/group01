@@ -80,8 +80,33 @@ def test_cant_list_someone_elses_versions():
     versions = listB.get_json()["versions"]
     assert versions == [], "user B could see user As versions"
     
+def test_cant_delete_someone_else_document():
+    client = app.test_client()
+    client.post("/api/create-user", json={"login":"delete_userA","password": "test-pw-a","email":"usera@deletetest.com",})
+    client.post("/api/create-user", json={"login": "delete_userB","password": "test-pw-b", "email":"userb@deletetest.com",})
+    loginA=client.post("/api/login", json={"email": "usera@deletetest.com", "password": "test-pw-a",})
+    tokenA = loginA.get_json()["token"]
+    loginB = client.post("/api/login", json={"email": "userb@deletetest.com", "password": "test-pw-b",})
+    tokenB = loginB.get_json()["token"]
     
+    upload_document = client.post(
+        "/api/upload-document",
+        headers={"Authorization": "Bearer " + tokenA},
+        data={"file": (open("test_sample.pdf", "rb"), "test_sample.pdf"), "name": "deletetest"},
+        content_type="multipart/form-data",)
     
+    document_id = upload_document.get_json()["id"]
+    
+    attempt_delete = client.delete(f"/api/delete-document/{document_id}", headers={"Authentication": "Bearer"+ tokenB},)
+    assert attempt_delete.status_code == 404
+    
+    list_documents = client.get("/api/list-documents",headers={"Authorization": "Bearer " + tokenA},)
+    document_ids = [d["id"] for d in list_docs.get_json()["documents"]]
+    assert document_id in documents_ids
+    
+
+    
+
     
 
     
