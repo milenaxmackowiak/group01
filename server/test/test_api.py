@@ -1,4 +1,7 @@
 from server import app
+from pathlib import Path
+#directory to the file, mutmut failed because filepath was wrong
+test_directory = Path(__file__).parent
 
 def test_healthz_route():
     client = app.test_client()
@@ -13,7 +16,7 @@ def test_path_username_is_rejected():
     response = client.post("/api/create-user", json={
         "login": "../pathtest",
         "password": "throwaway-pw",
-        "email": "pathtest-unittest@example.com",
+        "email": "pathtest-unittest@testpath.com",
     })
     assert response.status_code == 400
 
@@ -25,7 +28,7 @@ def test_bad_usernames_rejected():
         response = client.post("/api/create-user", json={
             "login": bad_login,
             "password": "throwaway-pw",
-            "email": f"bad-{bad_logins.index(bad_login)}@example.com",
+            "email": f"bad-{bad_logins.index(bad_login)}@testbadusername.com",
         })
         assert response.status_code == 400, f"{bad_login!r} should be rejected but got {response.status_code}"
         
@@ -66,7 +69,7 @@ def test_cant_list_someone_elses_versions():
     upload_document = client.post(
         "/api/upload-document",
         headers={"Authorization": "Bearer " + tokenA},
-        data={"file": (open("test_sample.pdf", "rb"), "test_sample.pdf"), "name": "versiontest"},
+        data={"file": (open(test_directory / "test_sample.pdf", "rb"), "test_sample.pdf"), "name": "versiontest"},
         content_type="multipart/form-data",)
     
     document_id = upload_document.get_json()["id"]
@@ -92,7 +95,7 @@ def test_cant_delete_someone_else_document():
     upload_document = client.post(
         "/api/upload-document",
         headers={"Authorization": "Bearer " + tokenA},
-        data={"file": (open("test_sample.pdf", "rb"), "test_sample.pdf"), "name": "deletetest"},
+        data={"file": (open(test_directory / "test_sample.pdf", "rb"), "test_sample.pdf"), "name": "deletetest"},
         content_type="multipart/form-data",)
     
     document_id = upload_document.get_json()["id"]
