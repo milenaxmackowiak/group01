@@ -1,7 +1,7 @@
 import os
 import pytest
 from sqlalchemy import create_engine, text
-#creat database that is used for testing so we don't have so many new accounts in the database
+#connect to database
 def testing_db():
     url = (f"mysql+pymysql://{os.environ['DB_USER']}:{os.environ['DB_PASSWORD']}"
         f"@{os.environ.get('DB_HOST', '127.0.0.1')}:{os.environ.get('DB_PORT', '3306')}"
