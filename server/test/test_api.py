@@ -97,18 +97,16 @@ def test_cant_delete_someone_else_document():
     
     document_id = upload_document.get_json()["id"]
     
-    attempt_delete = client.delete(f"/api/delete-document/{document_id}", headers={"Authentication": "Bearer"+ tokenB},)
+    attempt_delete = client.delete(f"/api/delete-document/{document_id}", headers={"Authorization": "Bearer "+ tokenB},)
     assert attempt_delete.status_code == 404
     
     list_documents = client.get("/api/list-documents",headers={"Authorization": "Bearer " + tokenA},)
-    document_ids = [d["id"] for d in list_docs.get_json()["documents"]]
-    assert document_id in documents_ids
+    document_ids = [d["id"] for d in list_documents.get_json()["documents"]]
+    assert document_id in document_ids
     
 
-    
-
-    
-
-    
-    
-    
+def test_unique_login_username():
+    client=app.test_client()
+    alice=client.post("/api/create-user", json={"login":"same_name","password": "test-pw-a","email":"usera@samename.com",})
+    bob=client.post("/api/create-user", json={"login": "same_name","password": "test-pw-b", "email":"userb@samename.com",})
+    assert bob.status_code == 409
