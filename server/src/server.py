@@ -50,6 +50,7 @@ def create_app():
     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+    app.config["RMAP_PASSPHRASE"] = os.environ.get("RMAP_PASSPHRASE")
 
     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
     
@@ -77,6 +78,7 @@ def create_app():
                 app.config["RMAP_SERVER_PUB"],
                 app.config["RMAP_SERVER_PRIV"],
                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                passphrase=app.config["RMAP_PASSPHRASE"],
                 verbose=False,
             )
             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])

@@ -20,6 +20,7 @@ services:
       - FLAG_2=${FLAG_2}
       - SECRET_KEY=${SECRET_KEY}
       - RMAP_WATERMARK_KEY=${RMAP_WATERMARK_KEY}
+      - RMAP_PASSPHRASE=${RMAP_PASSPHRASE}
     depends_on:
       db:
         condition: service_healthy
