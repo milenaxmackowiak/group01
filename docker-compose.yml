@@ -21,6 +21,7 @@ services:
       - SECRET_KEY=${SECRET_KEY}
       - RMAP_WATERMARK_KEY=${RMAP_WATERMARK_KEY}
       - RMAP_PASSPHRASE=${RMAP_PASSPHRASE}
+      - RMAP_LINK_PREFIX=${RMAP_LINK_PREFIX}
     depends_on:
       db:
         condition: service_healthy
