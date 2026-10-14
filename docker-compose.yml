@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   server:
     build:
@@ -25,6 +23,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - default
+      - backend
     restart: unless-stopped
 
   db:
@@ -43,8 +44,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    ports:
-      - "3306:3306"
+    networks:
+      - backend
+       # No internet access. Admin access via phpMyAdmin (SSH tunnel) or `docker compose exec db`.
     restart: unless-stopped
 
   phpmyadmin:
@@ -54,13 +56,21 @@ services:
       - PMA_PORT=3306
       - UPLOAD_LIMIT=64M     # <-- use a unit and quote if using YAML key:value form
       - MEMORY_LIMIT=256M
+    # Only reachable from the VM; use an SSH tunnel
     ports:
-      - "8080:80"
+      - "127.0.0.1:8080:80"
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - default
+      - backend
     restart: unless-stopped
 
 volumes:
   db-data:
   user-files:
+
+networks:
+  backend: # backend and internal exitst on all services, this is redudant but current test code could fail if they were not present. In the future, more seperatation could be added, but for now this is the simplest solution. 
+    internal: true
