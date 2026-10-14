@@ -5,6 +5,8 @@ import hashlib
 from sqlalchemy import text
 import conftest
 from server import create_app
+import secrets
+
 #directory to the file, mutmut failed because filepath was wrong
 test_directory = Path(__file__).parent
 
@@ -173,7 +175,24 @@ def test_rejects_missing_secret_key(monkeypatch):
 
 def test_token_ttl_read_from_env(monkeypatch):
     monkeypatch.setenv("SECRET_KEY", "a-real-test-secret")
-    monkeypatch.setenv("TOKEN_TTL_SECONDS", "60")
+    monkeypatch.setenv("TOKEN_TTLSECONDS", "60")
     app = create_app()
     assert app.config["TOKEN_TTL_SECONDS"] == 60
 
+def test_create_user_success():
+    client = app.test_client()
+    tag = secrets.token_hex(4)
+    payload = {
+        "login": f"user_{tag}",
+        "email": f"user_{tag}@example.com",
+        "password": "ValidPassword123!",
+    }
+
+    response = client.post("/api/create-user", json=payload)
+    
+    assert response.status_code == 201
+    data = response.get_json()
+    assert data["login"] == payload["login"]
+    assert data["email"] == payload["email"]
+    assert "password" not in data
+    assert "hpassword" not in data
