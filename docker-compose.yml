@@ -72,5 +72,5 @@ volumes:
   user-files:
 
 networks:
-  backend: # backend and internal exitst on all services, this is redudant but current test code could fail if they were not present. In the future, more seperatation could be added, but for now this is the simplest solution. 
+  backend: 
     internal: true
