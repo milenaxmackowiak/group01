@@ -175,7 +175,7 @@ def test_rejects_missing_secret_key(monkeypatch):
 
 def test_token_ttl_read_from_env(monkeypatch):
     monkeypatch.setenv("SECRET_KEY", "a-real-test-secret")
-    monkeypatch.setenv("TOKEN_TTLSECONDS", "60")
+    monkeypatch.setenv("TOKEN_TTL_SECONDS", "60")
     app = create_app()
     assert app.config["TOKEN_TTL_SECONDS"] == 60
 
