@@ -176,4 +176,25 @@ def test_token_ttl_read_from_env(monkeypatch):
     monkeypatch.setenv("TOKEN_TTL_SECONDS", "60")
     app = create_app()
     assert app.config["TOKEN_TTL_SECONDS"] == 60
+    
+import secrets
+
+def test_create_user_success():
+    client = app.test_client()
+    tag = secrets.token_hex(4)
+    payload = {
+        "login": f"user_{tag}",
+        "email": f"user_{tag}@example.com",
+        "password": "ValidPassword123!",
+    }
+
+    response = client.post("/api/create-user", json=payload)
+    
+    assert response.status_code == 201
+    data = response.get_json()
+    assert data["login"] == payload["login"]
+    assert data["email"] == payload["email"]
+    assert "password" not in data
+    assert "hpassword" not in data
+
 

@@ -113,8 +113,7 @@ class HannaWatermark(WatermarkingMethod):
         
         pdf_document.close()
         return decrypt_bytes.decode("utf-8")
-        
-        
+             
 
     def is_watermark_applicable(self, pdf, position: str | None = None) -> bool:
         pdf_bytes = load_pdf_bytes(pdf)
