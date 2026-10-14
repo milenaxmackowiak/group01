@@ -1,5 +1,10 @@
+import pytest
 from server import app
 from pathlib import Path
+import hashlib
+from sqlalchemy import text
+import conftest
+from server import create_app
 #directory to the file, mutmut failed because filepath was wrong
 test_directory = Path(__file__).parent
 
@@ -113,3 +118,62 @@ def test_unique_login_username():
     alice=client.post("/api/create-user", json={"login":"same_name","password": "test-pw-a","email":"usera@samename.com",})
     bob=client.post("/api/create-user", json={"login": "same_name","password": "test-pw-b", "email":"userb@samename.com",})
     assert bob.status_code == 409
+    
+#test after mutmut --> Hanna specilization
+def test_delete_document_not_escape_storage_root(tmp_path):
+    client=app.test_client()
+    userA=client.post("/api/create-user", json={"login":"escapeA", "password":"test-pw", "email": "escapeA@testescape.com",})
+    print("CREATE USER:", userA.status_code, userA.get_json())
+    user_id = userA.get_json()["id"]
+    login = client.post("/api/login", json={"email": "escapeA@testescape.com","password": "test-pw",})
+    token = login.get_json()["token"]
+    
+    # a file outside the app's storage directory, which we control
+    victim = tmp_path / "victim.txt"
+    victim.write_bytes(b"don't delete me :(")
+
+    content = b"test"
+    sha_hex = hashlib.sha256(content).hexdigest()
+
+    engine = conftest.testing_db()
+    with engine.begin() as conn:
+        conn.execute(
+            text("""
+                INSERT INTO Documents (name, path, ownerid, sha256, size)
+                VALUES (:name, :path, :ownerid, UNHEX(:sha256hex), :size)
+            """),
+            {
+                "name": "evil",
+                "path": str(victim.resolve()),
+                "ownerid": int(user_id),
+                "sha256hex": sha_hex,
+                "size": len(content),
+            },
+        )
+        document_id = int(conn.execute(text("SELECT LAST_INSERT_ID()")).scalar())
+        
+    resp=client.delete(
+        f"/api/delete-document/{document_id}",
+        headers={"Authorization": "Bearer " + token},
+    )
+    print("STATUS:", resp.status_code, resp.get_json())
+    assert victim.exists(), "file outside storage root was deleted"
+    assert resp.status_code != 404, "document not found - test setup is broken"
+    
+    
+def test_rejects_default_secret_key(monkeypatch):
+    monkeypatch.setenv("SECRET_KEY", "dev-secret-change-me")
+    with pytest.raises(RuntimeError):
+        create_app()
+
+def test_rejects_missing_secret_key(monkeypatch):
+    monkeypatch.delenv("SECRET_KEY", raising=False)
+    with pytest.raises(RuntimeError):
+        create_app()
+
+def test_token_ttl_read_from_env(monkeypatch):
+    monkeypatch.setenv("SECRET_KEY", "a-real-test-secret")
+    monkeypatch.setenv("TOKEN_TTL_SECONDS", "60")
+    app = create_app()
+    assert app.config["TOKEN_TTL_SECONDS"] == 60
+

@@ -1,5 +1,5 @@
 #hanna_watermark.py
-#Encrypts the secret and embeds it as invisible text on the PDF's first page using PyMuPDF.
+#Encrypts the secret and embeds it as invisible text on the PDF's first page using PyMuPDF and in metadata.
 
 from typing import Final
 import pymupdf  # PyMuPDF, python library for manipulation of pdf
@@ -82,7 +82,11 @@ class HannaWatermark(WatermarkingMethod):
         if wm_index != -1:
             #found it in the page text
             wm_start = wm_index + len(_WATER_MARKER_TAG)
-            encrypted_part = page_text[wm_start:].strip()
+            #bug fix after mutmut: take only the token and ignore any text added after it
+            parts = page_text[wm_start:].split()
+            if not parts:
+                raise SecretNotFoundError("Watermark tag found but no token after it")
+            encrypted_part = parts[0]
         else:
             #fallback: text watermark missing (maybe stripped), check metadata instead
             metadata = pdf_document.metadata or {}
@@ -91,8 +95,11 @@ class HannaWatermark(WatermarkingMethod):
             if meta_index == -1:
                 raise SecretNotFoundError("Watermark not found in text or metadata")
             meta_start = meta_index + len(_WATER_MARKER_TAG)
-            encrypted_part = keywords[meta_start:].strip()
-        
+            #bug fix after mutmut
+            parts = keywords[meta_start:].split()
+            if not parts:
+                raise SecretNotFoundError("Watermark tag found but no token after it")
+            encrypted_part = parts[0]        
         #Call helper method to change key to fernet key format
         fernet_key = self._return_fernet_key(key)
         #create fernet object
