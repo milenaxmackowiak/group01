@@ -47,6 +47,7 @@ services:
     networks:
       - backend
        # No internet access. Admin access via phpMyAdmin (SSH tunnel) or `docker compose exec db`.
+       # For test requiering db access run the test inside a container: `docker compose run --rm ... pytest`
     restart: unless-stopped
 
   phpmyadmin:
@@ -57,6 +58,9 @@ services:
       - UPLOAD_LIMIT=64M     # <-- use a unit and quote if using YAML key:value form
       - MEMORY_LIMIT=256M
     # Only reachable from the VM; use an SSH tunnel
+    # ssh -N -L 8080:127.0.0.1:8080 softsec@softsec-group-01.dsv.local.su.se
+    # Alternativey, if 8080 is already in use on the host, you can use a different port, e.g. 8081:
+    # ssh -N -L 8081:
     ports:
       - "127.0.0.1:8080:80"
     depends_on:
