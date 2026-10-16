@@ -5,6 +5,8 @@ import hashlib
 from sqlalchemy import text
 import conftest
 from server import create_app
+import secrets
+
 #directory to the file, mutmut failed because filepath was wrong
 test_directory = Path(__file__).parent
 
@@ -198,3 +200,35 @@ def test_create_user_success():
     assert "hpassword" not in data
 
 
+#test creat a user successfully
+def test_create_user_success():
+    client = app.test_client()
+    tag = secrets.token_hex(4)
+    payload = {
+        "login": f"user_{tag}",
+        "email": f"user_{tag}@example.com",
+        "password": "ValidPassword123!",
+    }
+
+    response = client.post("/api/create-user", json=payload)
+    
+    assert response.status_code == 201
+    data = response.get_json()
+    assert data["login"] == payload["login"]
+    assert data["email"] == payload["email"]
+    assert "password" not in data
+    assert "hpassword" not in data
+
+#test create user with a missing password
+def test_create_user_missing_password():
+    client = app.test_client()
+    payload = {
+        "login": "incomplete_user",
+        "email": "incomplete@example.com",
+    }
+
+    response = client.post("/api/create-user", json=payload)
+
+    assert response.status_code == 400
+    data = response.get_json()
+    assert "error" in data

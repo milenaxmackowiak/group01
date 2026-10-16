@@ -1,18 +1,20 @@
-import pymupdf
+import base64
+import hashlib
 import re
 from typing import Final
-from cryptography.fernet import Fernet
-import hashlib
-import base64
+
+import pymupdf
+from cryptography.fernet import Fernet, InvalidToken
 
 from watermarking_method import (
-    WatermarkingMethod,
     InvalidKeyError,
     SecretNotFoundError,
+    WatermarkingMethod,
     load_pdf_bytes,
 )
 
-pattern_td = re.compile(r'(-?\d+\.?\d*)\s+-?\d+\.?\d*\s+Td')
+_XMP_TAG_OPEN: Final[str] = "<tatou:watermark>"
+_XMP_TAG_CLOSE: Final[str] = "</tatou:watermark>"
 
 
 class WatermarkMilena(WatermarkingMethod):
@@ -20,186 +22,82 @@ class WatermarkMilena(WatermarkingMethod):
 
     @staticmethod
     def get_usage() -> str:
-        return "Embeds encrypted secret into text line gaps within the PDF content-stream."
+        return "Embeds an encrypted secret inside the document's XMP XML metadata package."
 
     @staticmethod
-    def _extract_gaps(split_stream: str):
-        gaps = []
-        for match in pattern_td.finditer(split_stream):
-            gaps.append({
-                'start': match.start(1),
-                'end': match.end(1),
-                'value': float(match.group(1))
-            })
-        return gaps
-
-    @staticmethod
-    def _return_fernet_key(key_str: str) -> bytes:
-        digest = hashlib.sha256(key_str.encode("utf-8")).digest()
+    def _return_fernet_key(key: str) -> bytes:
+        digest = hashlib.sha256(key.encode("utf-8")).digest()
         return base64.urlsafe_b64encode(digest)
-
-    @staticmethod
-    def _bits_to_bytes(bit_string: str) -> bytes:
-        length = (len(bit_string) // 8) * 8
-        bit_string = bit_string[:length]
-        if not bit_string:
-            return b""
-        return bytes(int(bit_string[i:i+8], 2) for i in range(0, len(bit_string), 8))
-
-    @staticmethod
-    def _bytes_to_bits(data: bytes) -> str:
-        return ''.join(f"{byte:08b}" for byte in data)
-
-    @staticmethod
-    def _rebuild_line_with_watermark(line: str, gaps: list, bit_stream: str, bit_idx: int) -> tuple[str, int]:
-        last_pos = 0
-        new_line_text = ""
-        num_gaps = len(gaps)
-
-        for i, gap in enumerate(gaps):
-            is_data_gap = (i % 2 == 0) and (i >= 2) and (i + 1 < num_gaps)
-
-            if is_data_gap and bit_idx < len(bit_stream):
-                left = gaps[i - 1]['value']
-                right = gaps[i + 1]['value']
-                baseline = (left + right) / 2.0
-
-                current_bit = bit_stream[bit_idx]
-                new_val = baseline * 1.02 if current_bit == '1' else baseline * 0.98
-                new_val_str = f"{new_val:.6f}"
-
-                new_line_text += line[last_pos:gap['start']] + new_val_str
-                last_pos = gap['end']
-                bit_idx += 1
-
-        new_line_text += line[last_pos:]
-        return new_line_text, bit_idx
 
     def add_watermark(self, pdf, secret: str, key: str, position: str | None = None) -> bytes:
         if not secret:
-            raise ValueError("Secret cannot be empty.")
+            raise ValueError("Secret must not be empty")
         if not key:
-            raise ValueError("Key cannot be empty.")
+            raise ValueError("Key must not be empty")
 
         pdf_bytes = load_pdf_bytes(pdf)
-        fernet_key = self._return_fernet_key(key)
-        f = Fernet(fernet_key)
-
-        secret_bytes = secret.encode("utf-8") if isinstance(secret, str) else secret
-        encrypted_payload = f.encrypt(secret_bytes)
+        fernet = Fernet(self._return_fernet_key(key))
+        token = fernet.encrypt(secret.encode("utf-8")).decode("utf-8")
 
         doc = pymupdf.open(stream=pdf_bytes, filetype="pdf")
         try:
-            page = doc[0]
-            stream = page.read_contents().decode("latin-1")
+            if doc.page_count == 0:
+                raise ValueError("PDF has no pages")
 
-            bit_stream = self._bytes_to_bits(encrypted_payload)
-            bit_idx = 0
-            modified_stream = ""
+            # Retrieve existing XMP XML or create a minimal envelope if none exists
+            current_xmp = doc.get_xml_metadata() or "<x:xmpmeta></x:xmpmeta>"
 
-            lines = re.split(r'(\d[\d\.\-\s]*Tm)', stream)
+            # Remove previous tag if re-watermarking
+            current_xmp = re.sub(
+                rf"{re.escape(_XMP_TAG_OPEN)}.*?{re.escape(_XMP_TAG_CLOSE)}",
+                "",
+                current_xmp,
+                flags=re.DOTALL,
+            )
 
-            for line in lines:
-                if not line.strip():
-                    modified_stream += line
-                    continue
+            # Insert tag with encrypted payload
+            custom_block = f"{_XMP_TAG_OPEN}{token}{_XMP_TAG_CLOSE}"
+            if "</x:xmpmeta>" in current_xmp:
+                new_xmp = current_xmp.replace("</x:xmpmeta>", f"{custom_block}</x:xmpmeta>")
+            else:
+                new_xmp = f"{current_xmp}\n{custom_block}"
 
-                gaps = self._extract_gaps(line)
-                if len(gaps) < 3:
-                    modified_stream += line
-                    continue
-
-                new_line, bit_idx = self._rebuild_line_with_watermark(line, gaps, bit_stream, bit_idx)
-                modified_stream += new_line
-
-            if bit_idx < len(bit_stream):
-                raise ValueError("PDF content stream does not have enough gaps to fit the entire encrypted secret.")
-
-            xref = doc.get_new_xref()
-            doc.update_object(xref, "<<>>")
-            doc.update_stream(xref, modified_stream.encode("latin-1"))
-            page.set_contents(xref)
-
+            doc.set_xml_metadata(new_xmp)
             return doc.tobytes()
         finally:
             doc.close()
 
     def read_secret(self, pdf, key: str) -> str:
         if not key:
-            raise ValueError("Key cannot be empty.")
+            raise ValueError("Key must not be empty")
 
         pdf_bytes = load_pdf_bytes(pdf)
-        fernet_key = self._return_fernet_key(key)
-        f = Fernet(fernet_key)
-
         doc = pymupdf.open(stream=pdf_bytes, filetype="pdf")
         try:
-            page = doc[0]
-            stream = page.read_contents().decode("latin-1")
+            xmp = doc.get_xml_metadata() or ""
         finally:
             doc.close()
 
-        lines = re.split(r'(\d[\d\.\-\s]*Tm)', stream)
-        extracted_bits = []
+        start_idx = xmp.find(_XMP_TAG_OPEN)
+        end_idx = xmp.find(_XMP_TAG_CLOSE)
 
-        for line in lines:
-            if not line.strip():
-                continue
+        if start_idx == -1 or end_idx == -1:
+            raise SecretNotFoundError("Watermark tag not found in document XMP metadata")
 
-            gaps = self._extract_gaps(line)
-            num_gaps = len(gaps)
+        token = xmp[start_idx + len(_XMP_TAG_OPEN):end_idx].strip()
+        if not token:
+            raise SecretNotFoundError("Watermark tag found but payload is empty")
 
-            if num_gaps < 3:
-                continue
-
-            for i, gap in enumerate(gaps):
-                is_data_gap = (i % 2 == 0) and (i >= 2) and (i + 1 < num_gaps)
-
-                if is_data_gap:
-                    left = gaps[i - 1]['value']
-                    right = gaps[i + 1]['value']
-                    baseline = (left + right) / 2.0
-
-                    if baseline == 0:
-                        continue
-
-                    actual_val = gap['value']
-                    ratio = actual_val / baseline
-
-                    if abs(ratio - 1.02) < abs(ratio - 0.98):
-                        extracted_bits.append("1")
-                    else:
-                        extracted_bits.append("0")
-
-                    # Attempt Fernet decryption when we have enough bits for a standard token
-                    if len(extracted_bits) % 8 == 0 and len(extracted_bits) >= 576:
-                        candidate_bytes = self._bits_to_bytes("".join(extracted_bits))
-                        try:
-                            decrypted_bytes = f.decrypt(candidate_bytes)
-                            return decrypted_bytes.decode('utf-8')
-                        except Exception:
-                            continue
-
-        if not extracted_bits:
-            raise SecretNotFoundError("No watermark found in document.")
-
-        raise InvalidKeyError("Failed to decrypt watermark with the provided key or payload was corrupted.")
+        fernet = Fernet(self._return_fernet_key(key))
+        try:
+            decrypted = fernet.decrypt(token.encode("utf-8"))
+            return decrypted.decode("utf-8")
+        except InvalidToken as exc:
+            raise InvalidKeyError("Invalid key for decrypting watermark") from exc
 
     def is_watermark_applicable(self, pdf, position: str | None = None) -> bool:
         pdf_bytes = load_pdf_bytes(pdf)
         doc = pymupdf.open(stream=pdf_bytes, filetype="pdf")
-        try:
-            if doc.page_count == 0:
-                return False
-            page = doc[0]
-            stream = page.read_contents().decode("latin-1")
-            lines = re.split(r'(\d[\d\.\-\s]*Tm)', stream)
-            for line in lines:
-                if not line.strip():
-                    continue
-                gaps = self._extract_gaps(line)
-                if len(gaps) >= 3:
-                    return True
-            return False
-        finally:
-            doc.close()
+        valid = doc.page_count > 0
+        doc.close()
+        return valid

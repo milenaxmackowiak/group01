@@ -205,7 +205,7 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
-
+server/server_priv.asc
 server/manual_test.py
 server/test_watermarked.pdf
 server/test_stripped.pdf
