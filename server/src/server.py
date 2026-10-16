@@ -31,6 +31,8 @@ def create_app():
     app.config["SECRET_KEY"] = secret_key
     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+    app.config["MAX_CONTENT_LENGTH"] = int(os.environ.get("MAX_CONTENT_LENGTH", str(20 * 1024 * 1024)))  # 20 MB
+
 
     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
@@ -46,7 +48,9 @@ def create_app():
     app.config["RMAP_PASSPHRASE"] = os.environ.get("RMAP_PASSPHRASE")
 
     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
-    
+    @app.errorhandler(413)
+    def request_too_large(e):
+        return jsonify({"error": "request body too large"}), 413
     
 
     # --- DB engine only (no Table metadata) ---
@@ -233,14 +237,23 @@ def create_app():
     # POST /api/create-user {email, login, password}
     @app.post("/api/create-user")
     def create_user():
-        payload = request.get_json(silent=True) or {}
-        email = (payload.get("email") or "").strip().lower()
-        login = (payload.get("login") or "").strip()
-        password = payload.get("password") or ""
+        payload = request.get_json(silent=True)
+        if not isinstance(payload, dict):
+            return jsonify({"error": "request body must be a JSON object"}), 400
+        email = payload.get("email")
+        login = payload.get("login")
+        password = payload.get("password")
+        #non-string values would crash on strip()
+        if not all(isinstance(v, str) for v in (email, login, password)):
+            return jsonify({"error": "email, login, and password need to be strings"}), 400
+        email = email.strip().lower()
+        login = login.strip()
         if not email or not login or not password:
             return jsonify({"error": "email, login, and password are required"}), 400
+        if len(email) > 254 or not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", email):
+            return jsonify({"error": "invalid email address"}), 400
         if not re.fullmatch(r"[A-Za-z0-9_-]{1,64}", login):
-            return jsonify({"error": "Username can only contain letters,numbers, underscores and hyphens"}), 400
+            return jsonify({"error": "The Username can only contain letters,numbers, underscores and hyphens"}), 400
 
         hpw = generate_password_hash(password)
 
@@ -431,12 +444,11 @@ def create_app():
                 rows = conn.execute(
                     text("""
                         SELECT v.id, v.documentid, v.link, v.intended_for, v.method
-                        FROM Users u
-                        JOIN Documents d ON d.ownerid = u.id
+                        FROM Documents d
                         JOIN Versions v ON d.id = v.documentid
-                        WHERE u.login = :glogin
+                        WHERE d.ownerid = :uid
                     """),
-                    {"glogin": str(g.user["login"])},
+                    {"uid": int(g.user["id"])},
                 ).all()
         except Exception as e:
             return jsonify({"error": f"database error: {str(e)}"}), 503
