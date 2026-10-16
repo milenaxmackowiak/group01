@@ -1,0 +1,24 @@
+# Security regression tests on HEAD
+# Command: SECRET_KEY=<set> python -m pytest -o addopts="" -v test/test_security_regressions.py
+# Date: 2026-10-17T00:06:49+02:00   No MySQL DB running (DB_USER unset)
+
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0 -- /home/cosma/Documents/School/group01/venv/bin/python
+hypothesis profile 'default'
+rootdir: /home/cosma/Documents/School/group01/server
+configfile: pyproject.toml
+plugins: hypothesis-6.169.0
+collecting ... collected 3 items
+
+test/test_security_regressions.py::test_bash_bridge_never_spawns_a_process PASSED [ 33%]
+test/test_security_regressions.py::test_bash_bridge_secret_with_shell_metacharacters_is_inert PASSED [ 66%]
+test/test_security_regressions.py::test_load_plugin_endpoint_stays_removed PASSED [100%]
+
+=============================== warnings summary ===============================
+test/test_security_regressions.py::test_load_plugin_endpoint_stays_removed
+  /home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/pgpy/constants.py:5: DeprecationWarning: imghdr was removed in Python 3.13. Please be aware that you are currently NOT using standard 'imghdr', but instead a separately installed 'standard-imghdr'.
+    import imghdr
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================ Hypothesis Statistics =============================
+========================= 3 passed, 1 warning in 0.18s =========================
