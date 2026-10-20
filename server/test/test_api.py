@@ -274,3 +274,17 @@ def test_static_file_not_found():
     
     
     
+#GET / should serve the frontend index.html
+def test_index_route():
+    client = app.test_client()
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.mimetype == "text/html"
+    assert response.data == (Path(app.static_folder) / "index.html").read_bytes()
+    response.close()
+
+#list-all-versions needs a login token
+def test_list_all_versions_requires_auth():
+    client = app.test_client()
+    response = client.get("/api/list-all-versions")
+    assert response.status_code == 401
