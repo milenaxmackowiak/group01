@@ -1,0 +1,33 @@
+# Fuzzing test_valid_email_accepted AFTER fix (HEAD), 300 hypothesis emails
+# No MySQL DB running, so 503 is accepted (see OK_CODES); each request waits on the DB connection, hence the long runtime
+# Date: 2026-10-17T00:07:41+02:00
+
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0 -- /home/cosma/Documents/School/group01/venv/bin/python
+hypothesis profile 'default'
+rootdir: /home/cosma/Documents/School/group01/server
+configfile: pyproject.toml
+plugins: hypothesis-6.169.0
+collecting ... collected 4 items / 3 deselected / 1 selected
+
+test/fuzz_create_user_email.py::test_valid_email_accepted PASSED         [100%]
+
+=============================== warnings summary ===============================
+../venv/lib64/python3.14/site-packages/pgpy/constants.py:5
+  /home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/pgpy/constants.py:5: DeprecationWarning: imghdr was removed in Python 3.13. Please be aware that you are currently NOT using standard 'imghdr', but instead a separately installed 'standard-imghdr'.
+    import imghdr
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================ Hypothesis Statistics =============================
+test/fuzz_create_user_email.py::test_valid_email_accepted:
+
+  - during generate phase (1195.95 seconds):
+    - Typical runtimes: ~ 1-4000 ms, of which ~ 0-3 ms in data generation
+    - 300 passing, 0 failing, and 33 invalid test cases
+
+  - Stopped because settings.max_examples=300
+
+
+=========== 1 passed, 3 deselected, 1 warning in 1196.17s (0:19:56) ============
+
+# Finished: 2026-10-17T00:27:38+02:00

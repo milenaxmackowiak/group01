@@ -1,0 +1,99 @@
+# Security regression tests against code BEFORE bash-bridge fix b8047f5 and load-plugin removal 661736d (checked out at b8047f5^)
+# Command: SECRET_KEY=<set> python -m pytest -o addopts="" -v test/test_security_regressions.py
+# Date: 2026-10-17T00:07:29+02:00   No MySQL DB running (DB_USER unset)
+
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0 -- /home/cosma/Documents/School/group01/venv/bin/python
+hypothesis profile 'default'
+rootdir: /tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_secfix/server
+configfile: pyproject.toml
+plugins: hypothesis-6.169.0
+collecting ... collected 3 items
+
+test/test_security_regressions.py::test_bash_bridge_never_spawns_a_process FAILED [ 33%]
+test/test_security_regressions.py::test_bash_bridge_secret_with_shell_metacharacters_is_inert FAILED [ 66%]
+test/test_security_regressions.py::test_load_plugin_endpoint_stays_removed FAILED [100%]
+
+=================================== FAILURES ===================================
+___________________ test_bash_bridge_never_spawns_a_process ____________________
+
+pdf_path = PosixPath('/tmp/pytest-of-cosma/pytest-4/test_bash_bridge_never_spawns_0/sample.pdf')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f745fb9ec40>
+
+    def test_bash_bridge_never_spawns_a_process(pdf_path, monkeypatch):
+        """add_watermark and read_secret must not call a shell or subprocess at all."""
+    
+        def boom(*args, **kwargs):
+            raise AssertionError(f"bash-bridge-eof spawned a process: {args!r}")
+    
+        monkeypatch.setattr(subprocess, "Popen", boom)  # subprocess.run/call/check_* all use Popen
+        monkeypatch.setattr(os, "system", boom)
+        monkeypatch.setattr(os, "popen", boom)
+    
+        wm = UnsafeBashBridgeAppendEOF()
+>       out = wm.add_watermark(pdf_path, secret="harmless", key="k")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test/test_security_regressions.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/unsafe_bash_bridge_append_eof.py:52: in add_watermark
+    res = subprocess.run(cmd, shell=True, check=True, capture_output=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib64/python3.14/subprocess.py:555: in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ('cat /tmp/pytest-of-cosma/pytest-4/test_bash_bridge_never_spawns_0/sample.pdf &&  printf "harmless"',)
+kwargs = {'shell': True, 'stdout': -1, 'stderr': -1}
+
+    def boom(*args, **kwargs):
+>       raise AssertionError(f"bash-bridge-eof spawned a process: {args!r}")
+E       AssertionError: bash-bridge-eof spawned a process: ('cat /tmp/pytest-of-cosma/pytest-4/test_bash_bridge_never_spawns_0/sample.pdf &&  printf "harmless"',)
+
+test/test_security_regressions.py:40: AssertionError
+__________ test_bash_bridge_secret_with_shell_metacharacters_is_inert __________
+
+pdf_path = PosixPath('/tmp/pytest-of-cosma/pytest-4/test_bash_bridge_secret_with_s0/sample.pdf')
+tmp_path = PosixPath('/tmp/pytest-of-cosma/pytest-4/test_bash_bridge_secret_with_s0')
+
+    def test_bash_bridge_secret_with_shell_metacharacters_is_inert(pdf_path, tmp_path):
+        """Shell payloads in the secret are stored and read back as plain text, never executed."""
+        marker = tmp_path / "pwned"
+        wm = UnsafeBashBridgeAppendEOF()
+    
+        for secret in _injection_secrets(marker):
+            out = wm.add_watermark(pdf_path, secret=secret, key="k")
+            marked = tmp_path / "marked.pdf"
+            marked.write_bytes(out)
+    
+>           assert wm.read_secret(marked, key="k") == secret, f"secret altered: {secret!r}"
+E           AssertionError: secret altered: '"; touch /tmp/pytest-of-cosma/pytest-4/test_bash_bridge_secret_with_s0/pwned #'
+E           assert '' == '"; touch /tm...th_s0/pwned #'
+E             
+E             - "; touch /tmp/pytest-of-cosma/pytest-4/test_bash_bridge_secret_with_s0/pwned #
+
+test/test_security_regressions.py:63: AssertionError
+___________________ test_load_plugin_endpoint_stays_removed ____________________
+
+    def test_load_plugin_endpoint_stays_removed():
+        """The endpoint that unpickled uploaded files (RCE) must not come back"""
+        from server import app
+    
+        plugin_routes = [r.rule for r in app.url_map.iter_rules() if "plugin" in r.rule]
+>       assert not plugin_routes, f"plugin-loading route is registered again: {plugin_routes}"
+E       AssertionError: plugin-loading route is registered again: ['/api/load-plugin']
+E       assert not ['/api/load-plugin']
+
+test/test_security_regressions.py:73: AssertionError
+=============================== warnings summary ===============================
+src/unsafe_bash_bridge_append_eof.py:68
+  /tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_secfix/server/src/unsafe_bash_bridge_append_eof.py:68: SyntaxWarning: "\(" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\("? A raw string is also an option.
+    cmd = "sed -n '1,/^\(%%EOF\|.*%%EOF\)$/!p' " + str(pdf.resolve())
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED test/test_security_regressions.py::test_bash_bridge_never_spawns_a_process
+FAILED test/test_security_regressions.py::test_bash_bridge_secret_with_shell_metacharacters_is_inert
+FAILED test/test_security_regressions.py::test_load_plugin_endpoint_stays_removed
+========================= 3 failed, 1 warning in 0.34s =========================

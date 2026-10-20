@@ -1,0 +1,271 @@
+# Fuzzing /api/create-user BEFORE fix (server.py at f27787a^). test_valid_email_accepted skipped: old code accepted any string, so it passes either way
+# Command: SECRET_KEY=<set> python -m pytest -o addopts="" -v test/fuzz_create_user_email.py --hypothesis-show-statistics -k not valid_email
+# Date: 2026-10-17T00:07:32+02:00   No MySQL DB running (DB_USER unset)
+
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0 -- /home/cosma/Documents/School/group01/venv/bin/python
+hypothesis profile 'default'
+rootdir: /tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server
+configfile: pyproject.toml
+plugins: hypothesis-6.169.0
+collecting ... collected 4 items / 1 deselected / 3 selected
+
+test/fuzz_create_user_email.py::test_non_string_email_rejected FAILED    [ 33%]
+test/fuzz_create_user_email.py::test_email_without_at_rejected FAILED    [ 66%]
+test/fuzz_create_user_email.py::test_non_object_body_rejected FAILED     [100%]
+
+=================================== FAILURES ===================================
+________________________ test_non_string_email_rejected ________________________
+
+    @settings(max_examples=300, suppress_health_check=[HealthCheck.too_slow])
+>   @given(email=non_string_json)
+                   ^^^
+
+test/fuzz_create_user_email.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+email = 1
+
+    @settings(max_examples=300, suppress_health_check=[HealthCheck.too_slow])
+    @given(email=non_string_json)
+    def test_non_string_email_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: 1 gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+E       Failing test case: test_non_string_email_rejected(
+E           email=1,
+E       )
+
+test/fuzz_create_user_email.py:27: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+no database to clean up
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'strip'
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'strip'
+________________________ test_email_without_at_rejected ________________________
+
+    @settings(max_examples=300, suppress_health_check=[HealthCheck.too_slow])
+>   @given(email=strings_without_at)
+                   ^^^
+
+test/fuzz_create_user_email.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+email = '0'
+
+    @settings(max_examples=300, suppress_health_check=[HealthCheck.too_slow])
+    @given(email=strings_without_at)
+    def test_email_without_at_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: '0' gave 503
+E       assert 503 == 400
+E        +  where 503 = <WrapperTestResponse streamed [503 SERVICE UNAVAILABLE]>.status_code
+E       Failing test case: test_email_without_at_rejected(
+E           email='0',
+E       )
+
+test/fuzz_create_user_email.py:34: AssertionError
+________________________ test_non_object_body_rejected _________________________
+
+    @settings(max_examples=100)
+>   @given(body=non_string_json)
+                   ^^^
+
+test/fuzz_create_user_email.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+body = True
+
+    @settings(max_examples=100)
+    @given(body=non_string_json)
+    def test_non_object_body_rejected(body):
+        #a body like [1, 2] or 123 used to crash on payload.get
+        response = post_user(body)
+>       assert response.status_code == 400, f"{body!r} gave {response.status_code}"
+E       AssertionError: True gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+E       Failing test case: test_non_object_body_rejected(
+E           body=True,
+E       )
+E       Explanation:
+E           These lines were always and only run by failing test cases:
+E               /home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py:804
+E               /home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py:809
+E               /home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py:820
+E               /home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py:838
+E               /home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py:839
+E               (and 10 more with settings.verbosity >= verbose)
+
+test/fuzz_create_user_email.py:57: AssertionError
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'get'
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'get'
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'bool' object has no attribute 'get'
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'bool' object has no attribute 'get'
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'bool' object has no attribute 'get'
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'bool' object has no attribute 'get'
+=============================== warnings summary ===============================
+../../../../../../../home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/pgpy/constants.py:5
+  /home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/pgpy/constants.py:5: DeprecationWarning: imghdr was removed in Python 3.13. Please be aware that you are currently NOT using standard 'imghdr', but instead a separately installed 'standard-imghdr'.
+    import imghdr
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================ Hypothesis Statistics =============================
+test/fuzz_create_user_email.py::test_non_string_email_rejected:
+
+  - during reuse phase (0.04 seconds):
+    - Typical runtimes: ~ 34ms, of which ~ 1ms in data generation
+    - 0 passing, 1 failing, and 0 invalid test cases
+    - Found 1 distinct error in this phase
+
+  - Stopped because nothing left to do
+
+
+test/fuzz_create_user_email.py::test_email_without_at_rejected:
+
+  - during reuse phase (4.11 seconds):
+    - Typical runtimes: ~ 4106ms, of which < 1ms in data generation
+    - 0 passing, 1 failing, and 0 invalid test cases
+    - Found 1 distinct error in this phase
+
+  - Stopped because nothing left to do
+
+
+test/fuzz_create_user_email.py::test_non_object_body_rejected:
+
+  - during generate phase (0.07 seconds):
+    - Typical runtimes: ~ 0-5 ms, of which ~ 0-2 ms in data generation
+    - 19 passing, 1 failing, and 4 invalid test cases
+    - Found 1 distinct error in this phase
+    - Events:
+      * 29.17%, Retried draw from text(characters(codec='utf-8'), max_size=5).filter(not_yet_in_unique_list) to satisfy filter
+
+  - during shrink phase (0.08 seconds):
+    - Typical runtimes: ~ 1-44 ms, of which < 1ms in data generation
+    - 1 passing, 4 failing, and 1 invalid test cases
+    - Tried 6 shrinks of which 1 were successful
+
+  - Stopped because nothing left to do
+
+
+=========================== short test summary info ============================
+FAILED test/fuzz_create_user_email.py::test_non_string_email_rejected - Asser...
+FAILED test/fuzz_create_user_email.py::test_email_without_at_rejected - Asser...
+FAILED test/fuzz_create_user_email.py::test_non_object_body_rejected - Assert...
+================== 3 failed, 1 deselected, 1 warning in 8.52s ==================
