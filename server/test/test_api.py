@@ -232,3 +232,45 @@ def test_create_user_missing_password():
     assert response.status_code == 400
     data = response.get_json()
     assert "error" in data
+    
+    
+def test_get_document():
+    client = app.test_client()
+    
+    testuser= client.post("/api/create-user", json={"login":"getdocument_user","password": "test-pw","email":"user@getdocumenttest.com",})
+    assert testuser.status_code == 201
+    login = client.post("/api/login", json={"email": "user@getdocumenttest.com", "password": "test-pw",})
+    token = login.get_json()["token"]
+    headers = {"Authorization": f"Bearer {token}"}
+    
+    with open(test_directory / "test_sample.pdf", "rb") as f:
+        upload = client.post(
+            "/api/upload-document",
+            data={"file": (f, "test_sample.pdf")},
+            headers=headers,
+            content_type="multipart/form-data",
+        )
+    assert upload.status_code == 201
+    doc_id = upload.get_json()["id"]
+
+    resp = client.get(f"/api/get-document/{doc_id}", headers=headers)
+    assert resp.status_code == 200
+    assert resp.mimetype == "application/pdf"
+    
+def test_static_file():
+    client = app.test_client()
+    resp = client.get("/style.css")
+    assert resp.status_code == 200
+    
+def test_static_file_not_found():
+    client = app.test_client()
+    resp = client.get("/does-not-exist.html")
+    assert resp.status_code == 404
+    
+    
+    
+    
+   
+    
+    
+    
