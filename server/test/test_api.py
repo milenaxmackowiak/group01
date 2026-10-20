@@ -211,3 +211,15 @@ def test_create_user_missing_password():
     assert response.status_code == 400
     data = response.get_json()
     assert "error" in data
+
+
+def test_get_watermarking_methods_public():
+    client = app.test_client()
+    response = client.get('/api/get-watermarking-methods')
+    assert response.status_code == 200
+    
+    data = response.get_json()
+    assert isinstance(data, (dict, list))
+    # Checking if one of the method is present in the list
+    if isinstance(data, list):
+        assert "watermark-milena" in data
