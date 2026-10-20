@@ -223,3 +223,37 @@ def test_get_watermarking_methods_public():
     # Checking if one of the method is present in the list
     if isinstance(data, list):
         assert "watermark-milena" in data
+
+#test to read a certain watermark by an authenticated user
+def test_read_watermark_id():
+    client = app.test_client()
+    
+    testuser = client.post("/api/create-user", json={"login": "readwm_user", "password": "test-pw", "email": "user@readwmtest.com"})
+    assert testuser.status_code == 201
+
+    login = client.post("/api/login", json={"email": "user@readwmtest.com", "password": "test-pw"})
+    token = login.get_json()["token"]
+    headers = {"Authorization": f"Bearer {token}"}
+    
+    with open(test_directory / "test_sample.pdf", "rb") as f:
+        upload = client.post(
+            "/api/upload-document",
+            data={"file": (f, "test_sample.pdf")},
+            headers=headers,
+            content_type="multipart/form-data",
+        )
+
+    assert upload.status_code == 201
+    doc_id = upload.get_json()["id"]
+
+    watermark = client.post(
+        f"/api/create-watermark/{doc_id}",
+        json={"method": "watermark-milena", "key": "testkey", "secret": "testsecret", "intended_for": "recipient"},
+        headers=headers,
+    )
+    assert watermark.status_code == 200
+
+    # Reading the watermark
+    resp = client.post(f"/api/read-watermark/{doc_id}", json={"key": "testkey"}, headers=headers)
+    assert resp.status_code == 200
+    assert resp.get_json()["secret"] == "testsecret"
