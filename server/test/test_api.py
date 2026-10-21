@@ -319,3 +319,27 @@ def test_list_all_versions_requires_auth():
     client = app.test_client()
     response = client.get("/api/list-all-versions")
     assert response.status_code == 401
+
+#app with a small sqlite Versions table instead of mysql, so get-version can run without a database server
+@pytest.fixture
+def version_app(tmp_path, monkeypatch):
+    from sqlalchemy import create_engine
+    monkeypatch.setenv("STORAGE_DIR", str(tmp_path))
+    version_app = create_app()
+    pdf_path = tmp_path / "watermarked.pdf"
+    pdf_path.write_bytes((test_directory / "test_sample.pdf").read_bytes())
+    engine = create_engine("sqlite://")
+    with engine.begin() as conn:
+        conn.execute(text("CREATE TABLE Versions (id INTEGER PRIMARY KEY, link TEXT, path TEXT)"))
+        conn.execute(text("INSERT INTO Versions (link, path) VALUES (:link, :path)"), {"link": "testversionlink", "path": str(pdf_path)})
+    version_app.config["_ENGINE"] = engine
+    return version_app
+
+#a valid link returns the watermarked pdf
+def test_get_version_returns_pdf(version_app):
+    client = version_app.test_client()
+    response = client.get("/api/get-version/testversionlink")
+    assert response.status_code == 200
+    assert response.mimetype == "application/pdf"
+    assert response.data.startswith(b"%PDF")
+    response.close()
