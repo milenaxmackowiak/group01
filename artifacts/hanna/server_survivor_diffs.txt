@@ -1,0 +1,2759 @@
+=== server.x_create_app__mutmut_5 ===
+# server.x_create_app__mutmut_5: survived
+--- src/server.py
++++ src/server.py
+@@ -4,7 +4,7 @@
+     app = Flask(__name__)
+ 
+     # --- Config ---
+-    secret_key = os.environ.get("SECRET_KEY", "").strip()
++    secret_key = os.environ.get("SECRET_KEY", None).strip()
+     if not secret_key or secret_key == "dev-secret-change-me":
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+=== server.x_create_app__mutmut_7 ===
+# server.x_create_app__mutmut_7: survived
+--- src/server.py
++++ src/server.py
+@@ -4,7 +4,7 @@
+     app = Flask(__name__)
+ 
+     # --- Config ---
+-    secret_key = os.environ.get("SECRET_KEY", "").strip()
++    secret_key = os.environ.get("SECRET_KEY", ).strip()
+     if not secret_key or secret_key == "dev-secret-change-me":
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+=== server.x_create_app__mutmut_10 ===
+# server.x_create_app__mutmut_10: survived
+--- src/server.py
++++ src/server.py
+@@ -4,7 +4,7 @@
+     app = Flask(__name__)
+ 
+     # --- Config ---
+-    secret_key = os.environ.get("SECRET_KEY", "").strip()
++    secret_key = os.environ.get("SECRET_KEY", "XXXX").strip()
+     if not secret_key or secret_key == "dev-secret-change-me":
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+=== server.x_create_app__mutmut_11 ===
+# server.x_create_app__mutmut_11: survived
+--- src/server.py
++++ src/server.py
+@@ -5,7 +5,7 @@
+ 
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY", "").strip()
+-    if not secret_key or secret_key == "dev-secret-change-me":
++    if not secret_key and secret_key == "dev-secret-change-me":
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+=== server.x_create_app__mutmut_14 ===
+# server.x_create_app__mutmut_14: survived
+--- src/server.py
++++ src/server.py
+@@ -5,7 +5,7 @@
+ 
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY", "").strip()
+-    if not secret_key or secret_key == "dev-secret-change-me":
++    if not secret_key or secret_key == "XXdev-secret-change-meXX":
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+=== server.x_create_app__mutmut_15 ===
+# server.x_create_app__mutmut_15: survived
+--- src/server.py
++++ src/server.py
+@@ -5,7 +5,7 @@
+ 
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY", "").strip()
+-    if not secret_key or secret_key == "dev-secret-change-me":
++    if not secret_key or secret_key == "DEV-SECRET-CHANGE-ME":
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+=== server.x_create_app__mutmut_16 ===
+# server.x_create_app__mutmut_16: survived
+--- src/server.py
++++ src/server.py
+@@ -6,7 +6,7 @@
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY", "").strip()
+     if not secret_key or secret_key == "dev-secret-change-me":
+-        raise RuntimeError("Set SECRET_KEY to a random value")
++        raise RuntimeError(None)
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+=== server.x_create_app__mutmut_17 ===
+# server.x_create_app__mutmut_17: survived
+--- src/server.py
++++ src/server.py
+@@ -6,7 +6,7 @@
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY", "").strip()
+     if not secret_key or secret_key == "dev-secret-change-me":
+-        raise RuntimeError("Set SECRET_KEY to a random value")
++        raise RuntimeError("XXSet SECRET_KEY to a random valueXX")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+=== server.x_create_app__mutmut_18 ===
+# server.x_create_app__mutmut_18: survived
+--- src/server.py
++++ src/server.py
+@@ -6,7 +6,7 @@
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY", "").strip()
+     if not secret_key or secret_key == "dev-secret-change-me":
+-        raise RuntimeError("Set SECRET_KEY to a random value")
++        raise RuntimeError("set secret_key to a random value")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+=== server.x_create_app__mutmut_19 ===
+# server.x_create_app__mutmut_19: survived
+--- src/server.py
++++ src/server.py
+@@ -6,7 +6,7 @@
+     # --- Config ---
+     secret_key = os.environ.get("SECRET_KEY", "").strip()
+     if not secret_key or secret_key == "dev-secret-change-me":
+-        raise RuntimeError("Set SECRET_KEY to a random value")
++        raise RuntimeError("SET SECRET_KEY TO A RANDOM VALUE")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+=== server.x_create_app__mutmut_31 ===
+# server.x_create_app__mutmut_31: survived
+--- src/server.py
++++ src/server.py
+@@ -8,7 +8,7 @@
+     if not secret_key or secret_key == "dev-secret-change-me":
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+-    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
++    app.config["STORAGE_DIR"] = Path(os.environ.get("XXSTORAGE_DIRXX", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+=== server.x_create_app__mutmut_32 ===
+# server.x_create_app__mutmut_32: survived
+--- src/server.py
++++ src/server.py
+@@ -8,7 +8,7 @@
+     if not secret_key or secret_key == "dev-secret-change-me":
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+-    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
++    app.config["STORAGE_DIR"] = Path(os.environ.get("storage_dir", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+=== server.x_create_app__mutmut_33 ===
+# server.x_create_app__mutmut_33: survived
+--- src/server.py
++++ src/server.py
+@@ -8,7 +8,7 @@
+     if not secret_key or secret_key == "dev-secret-change-me":
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+-    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
++    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "XX./storageXX")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+=== server.x_create_app__mutmut_34 ===
+# server.x_create_app__mutmut_34: survived
+--- src/server.py
++++ src/server.py
+@@ -8,7 +8,7 @@
+     if not secret_key or secret_key == "dev-secret-change-me":
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+-    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
++    app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./STORAGE")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+=== server.x_create_app__mutmut_35 ===
+# server.x_create_app__mutmut_35: survived
+--- src/server.py
++++ src/server.py
+@@ -9,7 +9,7 @@
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+-    app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
++    app.config["TOKEN_TTL_SECONDS"] = None
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+=== server.x_create_app__mutmut_43 ===
+# server.x_create_app__mutmut_43: survived
+--- src/server.py
++++ src/server.py
+@@ -9,7 +9,7 @@
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+-    app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
++    app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("XXTOKEN_TTL_SECONDSXX", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+=== server.x_create_app__mutmut_44 ===
+# server.x_create_app__mutmut_44: survived
+--- src/server.py
++++ src/server.py
+@@ -9,7 +9,7 @@
+         raise RuntimeError("Set SECRET_KEY to a random value")
+     app.config["SECRET_KEY"] = secret_key
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+-    app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
++    app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("token_ttl_seconds", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+=== server.x_create_app__mutmut_46 ===
+# server.x_create_app__mutmut_46: survived
+--- src/server.py
++++ src/server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = None
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+=== server.x_create_app__mutmut_47 ===
+# server.x_create_app__mutmut_47: survived
+--- src/server.py
++++ src/server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["XXDB_USERXX"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+=== server.x_create_app__mutmut_48 ===
+# server.x_create_app__mutmut_48: survived
+--- src/server.py
++++ src/server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["db_user"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+=== server.x_create_app__mutmut_50 ===
+# server.x_create_app__mutmut_50: survived
+--- src/server.py
++++ src/server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("DB_USER", None)
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+=== server.x_create_app__mutmut_51 ===
+# server.x_create_app__mutmut_51: survived
+--- src/server.py
++++ src/server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+=== server.x_create_app__mutmut_52 ===
+# server.x_create_app__mutmut_52: survived
+--- src/server.py
++++ src/server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("DB_USER", )
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+=== server.x_create_app__mutmut_53 ===
+# server.x_create_app__mutmut_53: survived
+--- src/server.py
++++ src/server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("XXDB_USERXX", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+=== server.x_create_app__mutmut_54 ===
+# server.x_create_app__mutmut_54: survived
+--- src/server.py
++++ src/server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("db_user", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+=== server.x_create_app__mutmut_55 ===
+# server.x_create_app__mutmut_55: survived
+--- src/server.py
++++ src/server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("DB_USER", "XXtatouXX")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+=== server.x_create_app__mutmut_56 ===
+# server.x_create_app__mutmut_56: survived
+--- src/server.py
++++ src/server.py
+@@ -11,7 +11,7 @@
+     app.config["STORAGE_DIR"] = Path(os.environ.get("STORAGE_DIR", "./storage")).resolve()
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+-    app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
++    app.config["DB_USER"] = os.environ.get("DB_USER", "TATOU")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+=== server.x_create_app__mutmut_57 ===
+# server.x_create_app__mutmut_57: survived
+--- src/server.py
++++ src/server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = None
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+=== server.x_create_app__mutmut_58 ===
+# server.x_create_app__mutmut_58: survived
+--- src/server.py
++++ src/server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["XXDB_PASSWORDXX"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+=== server.x_create_app__mutmut_59 ===
+# server.x_create_app__mutmut_59: survived
+--- src/server.py
++++ src/server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["db_password"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+=== server.x_create_app__mutmut_61 ===
+# server.x_create_app__mutmut_61: survived
+--- src/server.py
++++ src/server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", None)
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+=== server.x_create_app__mutmut_62 ===
+# server.x_create_app__mutmut_62: survived
+--- src/server.py
++++ src/server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+=== server.x_create_app__mutmut_63 ===
+# server.x_create_app__mutmut_63: survived
+--- src/server.py
++++ src/server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", )
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+=== server.x_create_app__mutmut_64 ===
+# server.x_create_app__mutmut_64: survived
+--- src/server.py
++++ src/server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("XXDB_PASSWORDXX", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+=== server.x_create_app__mutmut_65 ===
+# server.x_create_app__mutmut_65: survived
+--- src/server.py
++++ src/server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("db_password", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+=== server.x_create_app__mutmut_66 ===
+# server.x_create_app__mutmut_66: survived
+--- src/server.py
++++ src/server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "XXtatouXX")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+=== server.x_create_app__mutmut_67 ===
+# server.x_create_app__mutmut_67: survived
+--- src/server.py
++++ src/server.py
+@@ -12,7 +12,7 @@
+     app.config["TOKEN_TTL_SECONDS"] = int(os.environ.get("TOKEN_TTL_SECONDS", "86400"))
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+-    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
++    app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "TATOU")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+=== server.x_create_app__mutmut_68 ===
+# server.x_create_app__mutmut_68: survived
+--- src/server.py
++++ src/server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = None
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+=== server.x_create_app__mutmut_69 ===
+# server.x_create_app__mutmut_69: survived
+--- src/server.py
++++ src/server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["XXDB_HOSTXX"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+=== server.x_create_app__mutmut_70 ===
+# server.x_create_app__mutmut_70: survived
+--- src/server.py
++++ src/server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["db_host"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+=== server.x_create_app__mutmut_72 ===
+# server.x_create_app__mutmut_72: survived
+--- src/server.py
++++ src/server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("DB_HOST", None)
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+=== server.x_create_app__mutmut_73 ===
+# server.x_create_app__mutmut_73: survived
+--- src/server.py
++++ src/server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+=== server.x_create_app__mutmut_74 ===
+# server.x_create_app__mutmut_74: survived
+--- src/server.py
++++ src/server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("DB_HOST", )
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+=== server.x_create_app__mutmut_75 ===
+# server.x_create_app__mutmut_75: survived
+--- src/server.py
++++ src/server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("XXDB_HOSTXX", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+=== server.x_create_app__mutmut_76 ===
+# server.x_create_app__mutmut_76: survived
+--- src/server.py
++++ src/server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("db_host", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+=== server.x_create_app__mutmut_77 ===
+# server.x_create_app__mutmut_77: survived
+--- src/server.py
++++ src/server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("DB_HOST", "XXdbXX")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+=== server.x_create_app__mutmut_78 ===
+# server.x_create_app__mutmut_78: survived
+--- src/server.py
++++ src/server.py
+@@ -13,7 +13,7 @@
+ 
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+-    app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
++    app.config["DB_HOST"] = os.environ.get("DB_HOST", "DB")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+=== server.x_create_app__mutmut_79 ===
+# server.x_create_app__mutmut_79: survived
+--- src/server.py
++++ src/server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = None
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+=== server.x_create_app__mutmut_80 ===
+# server.x_create_app__mutmut_80: survived
+--- src/server.py
++++ src/server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["XXDB_PORTXX"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+=== server.x_create_app__mutmut_81 ===
+# server.x_create_app__mutmut_81: survived
+--- src/server.py
++++ src/server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["db_port"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+=== server.x_create_app__mutmut_84 ===
+# server.x_create_app__mutmut_84: survived
+--- src/server.py
++++ src/server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", None))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+=== server.x_create_app__mutmut_86 ===
+# server.x_create_app__mutmut_86: survived
+--- src/server.py
++++ src/server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", ))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+=== server.x_create_app__mutmut_87 ===
+# server.x_create_app__mutmut_87: survived
+--- src/server.py
++++ src/server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = int(os.environ.get("XXDB_PORTXX", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+=== server.x_create_app__mutmut_88 ===
+# server.x_create_app__mutmut_88: survived
+--- src/server.py
++++ src/server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = int(os.environ.get("db_port", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+=== server.x_create_app__mutmut_89 ===
+# server.x_create_app__mutmut_89: survived
+--- src/server.py
++++ src/server.py
+@@ -14,7 +14,7 @@
+     app.config["DB_USER"] = os.environ.get("DB_USER", "tatou")
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+-    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
++    app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "XX3306XX"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+=== server.x_create_app__mutmut_90 ===
+# server.x_create_app__mutmut_90: survived
+--- src/server.py
++++ src/server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = None
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+=== server.x_create_app__mutmut_91 ===
+# server.x_create_app__mutmut_91: survived
+--- src/server.py
++++ src/server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["XXDB_NAMEXX"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+=== server.x_create_app__mutmut_92 ===
+# server.x_create_app__mutmut_92: survived
+--- src/server.py
++++ src/server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["db_name"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+=== server.x_create_app__mutmut_94 ===
+# server.x_create_app__mutmut_94: survived
+--- src/server.py
++++ src/server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("DB_NAME", None)
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+=== server.x_create_app__mutmut_95 ===
+# server.x_create_app__mutmut_95: survived
+--- src/server.py
++++ src/server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+=== server.x_create_app__mutmut_96 ===
+# server.x_create_app__mutmut_96: survived
+--- src/server.py
++++ src/server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("DB_NAME", )
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+=== server.x_create_app__mutmut_97 ===
+# server.x_create_app__mutmut_97: survived
+--- src/server.py
++++ src/server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("XXDB_NAMEXX", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+=== server.x_create_app__mutmut_98 ===
+# server.x_create_app__mutmut_98: survived
+--- src/server.py
++++ src/server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("db_name", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+=== server.x_create_app__mutmut_99 ===
+# server.x_create_app__mutmut_99: survived
+--- src/server.py
++++ src/server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("DB_NAME", "XXtatouXX")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+=== server.x_create_app__mutmut_100 ===
+# server.x_create_app__mutmut_100: survived
+--- src/server.py
++++ src/server.py
+@@ -15,7 +15,7 @@
+     app.config["DB_PASSWORD"] = os.environ.get("DB_PASSWORD", "tatou")
+     app.config["DB_HOST"] = os.environ.get("DB_HOST", "db")
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+-    app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
++    app.config["DB_NAME"] = os.environ.get("DB_NAME", "TATOU")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+=== server.x_create_app__mutmut_101 ===
+# server.x_create_app__mutmut_101: survived
+--- src/server.py
++++ src/server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+-    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
++    app.config["RMAP_SERVER_PUB"] = None
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+=== server.x_create_app__mutmut_102 ===
+# server.x_create_app__mutmut_102: survived
+--- src/server.py
++++ src/server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+-    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
++    app.config["XXRMAP_SERVER_PUBXX"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+=== server.x_create_app__mutmut_103 ===
+# server.x_create_app__mutmut_103: survived
+--- src/server.py
++++ src/server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+-    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
++    app.config["rmap_server_pub"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+=== server.x_create_app__mutmut_105 ===
+# server.x_create_app__mutmut_105: survived
+--- src/server.py
++++ src/server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+-    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
++    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", None)
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+=== server.x_create_app__mutmut_106 ===
+# server.x_create_app__mutmut_106: survived
+--- src/server.py
++++ src/server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+-    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
++    app.config["RMAP_SERVER_PUB"] = os.environ.get("/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+=== server.x_create_app__mutmut_107 ===
+# server.x_create_app__mutmut_107: survived
+--- src/server.py
++++ src/server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+-    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
++    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", )
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+=== server.x_create_app__mutmut_108 ===
+# server.x_create_app__mutmut_108: survived
+--- src/server.py
++++ src/server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+-    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
++    app.config["RMAP_SERVER_PUB"] = os.environ.get("XXRMAP_SERVER_PUBXX", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+=== server.x_create_app__mutmut_109 ===
+# server.x_create_app__mutmut_109: survived
+--- src/server.py
++++ src/server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+-    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
++    app.config["RMAP_SERVER_PUB"] = os.environ.get("rmap_server_pub", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+=== server.x_create_app__mutmut_110 ===
+# server.x_create_app__mutmut_110: survived
+--- src/server.py
++++ src/server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+-    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
++    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "XX/app/server_pub.ascXX")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+=== server.x_create_app__mutmut_111 ===
+# server.x_create_app__mutmut_111: survived
+--- src/server.py
++++ src/server.py
+@@ -17,7 +17,7 @@
+     app.config["DB_PORT"] = int(os.environ.get("DB_PORT", "3306"))
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+-    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
++    app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/APP/SERVER_PUB.ASC")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+=== server.x_create_app__mutmut_112 ===
+# server.x_create_app__mutmut_112: survived
+--- src/server.py
++++ src/server.py
+@@ -18,7 +18,7 @@
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+-    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
++    app.config["RMAP_SERVER_PRIV"] = None
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+=== server.x_create_app__mutmut_113 ===
+# server.x_create_app__mutmut_113: survived
+--- src/server.py
++++ src/server.py
+@@ -18,7 +18,7 @@
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+-    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
++    app.config["XXRMAP_SERVER_PRIVXX"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+=== server.x_create_app__mutmut_114 ===
+# server.x_create_app__mutmut_114: survived
+--- src/server.py
++++ src/server.py
+@@ -18,7 +18,7 @@
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+-    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
++    app.config["rmap_server_priv"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+=== server.x_create_app__mutmut_116 ===
+# server.x_create_app__mutmut_116: survived
+--- src/server.py
++++ src/server.py
+@@ -18,7 +18,7 @@
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+-    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
++    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", None)
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+=== server.x_create_app__mutmut_117 ===
+# server.x_create_app__mutmut_117: survived
+--- src/server.py
++++ src/server.py
+@@ -18,7 +18,7 @@
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+-    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
++    app.config["RMAP_SERVER_PRIV"] = os.environ.get("/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+=== server.x_create_app__mutmut_118 ===
+# server.x_create_app__mutmut_118: survived
+--- src/server.py
++++ src/server.py
+@@ -18,7 +18,7 @@
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+-    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
++    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", )
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+=== server.x_create_app__mutmut_119 ===
+# server.x_create_app__mutmut_119: survived
+--- src/server.py
++++ src/server.py
+@@ -18,7 +18,7 @@
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+-    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
++    app.config["RMAP_SERVER_PRIV"] = os.environ.get("XXRMAP_SERVER_PRIVXX", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+=== server.x_create_app__mutmut_120 ===
+# server.x_create_app__mutmut_120: survived
+--- src/server.py
++++ src/server.py
+@@ -18,7 +18,7 @@
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+-    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
++    app.config["RMAP_SERVER_PRIV"] = os.environ.get("rmap_server_priv", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+=== server.x_create_app__mutmut_121 ===
+# server.x_create_app__mutmut_121: survived
+--- src/server.py
++++ src/server.py
+@@ -18,7 +18,7 @@
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+-    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
++    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "XX/app/server_priv.ascXX")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+=== server.x_create_app__mutmut_122 ===
+# server.x_create_app__mutmut_122: survived
+--- src/server.py
++++ src/server.py
+@@ -18,7 +18,7 @@
+     app.config["DB_NAME"] = os.environ.get("DB_NAME", "tatou")
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+-    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
++    app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/APP/SERVER_PRIV.ASC")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+=== server.x_create_app__mutmut_123 ===
+# server.x_create_app__mutmut_123: survived
+--- src/server.py
++++ src/server.py
+@@ -19,7 +19,7 @@
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+-    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
++    app.config["RMAP_CLIENTS_DIR"] = None
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+=== server.x_create_app__mutmut_124 ===
+# server.x_create_app__mutmut_124: survived
+--- src/server.py
++++ src/server.py
+@@ -19,7 +19,7 @@
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+-    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
++    app.config["XXRMAP_CLIENTS_DIRXX"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+=== server.x_create_app__mutmut_125 ===
+# server.x_create_app__mutmut_125: survived
+--- src/server.py
++++ src/server.py
+@@ -19,7 +19,7 @@
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+-    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
++    app.config["rmap_clients_dir"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+=== server.x_create_app__mutmut_127 ===
+# server.x_create_app__mutmut_127: survived
+--- src/server.py
++++ src/server.py
+@@ -19,7 +19,7 @@
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+-    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
++    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", None)
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+=== server.x_create_app__mutmut_128 ===
+# server.x_create_app__mutmut_128: survived
+--- src/server.py
++++ src/server.py
+@@ -19,7 +19,7 @@
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+-    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
++    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+=== server.x_create_app__mutmut_129 ===
+# server.x_create_app__mutmut_129: survived
+--- src/server.py
++++ src/server.py
+@@ -19,7 +19,7 @@
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+-    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
++    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", )
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+=== server.x_create_app__mutmut_130 ===
+# server.x_create_app__mutmut_130: survived
+--- src/server.py
++++ src/server.py
+@@ -19,7 +19,7 @@
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+-    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
++    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("XXRMAP_CLIENTS_DIRXX", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+=== server.x_create_app__mutmut_131 ===
+# server.x_create_app__mutmut_131: survived
+--- src/server.py
++++ src/server.py
+@@ -19,7 +19,7 @@
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+-    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
++    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("rmap_clients_dir", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+=== server.x_create_app__mutmut_132 ===
+# server.x_create_app__mutmut_132: survived
+--- src/server.py
++++ src/server.py
+@@ -19,7 +19,7 @@
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+-    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
++    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "XX/app/clientsXX")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+=== server.x_create_app__mutmut_133 ===
+# server.x_create_app__mutmut_133: survived
+--- src/server.py
++++ src/server.py
+@@ -19,7 +19,7 @@
+     #----add RMAP config values---
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+-    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
++    app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/APP/CLIENTS")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+=== server.x_create_app__mutmut_134 ===
+# server.x_create_app__mutmut_134: survived
+--- src/server.py
++++ src/server.py
+@@ -20,7 +20,7 @@
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+-    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
++    app.config["RMAP_LINK_PREFIX"] = None
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+=== server.x_create_app__mutmut_135 ===
+# server.x_create_app__mutmut_135: survived
+--- src/server.py
++++ src/server.py
+@@ -20,7 +20,7 @@
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+-    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
++    app.config["XXRMAP_LINK_PREFIXXX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+=== server.x_create_app__mutmut_136 ===
+# server.x_create_app__mutmut_136: survived
+--- src/server.py
++++ src/server.py
+@@ -20,7 +20,7 @@
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+-    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
++    app.config["rmap_link_prefix"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+=== server.x_create_app__mutmut_138 ===
+# server.x_create_app__mutmut_138: survived
+--- src/server.py
++++ src/server.py
+@@ -20,7 +20,7 @@
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+-    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
++    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", None)
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+=== server.x_create_app__mutmut_139 ===
+# server.x_create_app__mutmut_139: survived
+--- src/server.py
++++ src/server.py
+@@ -20,7 +20,7 @@
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+-    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
++    app.config["RMAP_LINK_PREFIX"] = os.environ.get("http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+=== server.x_create_app__mutmut_140 ===
+# server.x_create_app__mutmut_140: survived
+--- src/server.py
++++ src/server.py
+@@ -20,7 +20,7 @@
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+-    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
++    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", )
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+=== server.x_create_app__mutmut_141 ===
+# server.x_create_app__mutmut_141: survived
+--- src/server.py
++++ src/server.py
+@@ -20,7 +20,7 @@
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+-    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
++    app.config["RMAP_LINK_PREFIX"] = os.environ.get("XXRMAP_LINK_PREFIXXX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+=== server.x_create_app__mutmut_142 ===
+# server.x_create_app__mutmut_142: survived
+--- src/server.py
++++ src/server.py
+@@ -20,7 +20,7 @@
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+-    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
++    app.config["RMAP_LINK_PREFIX"] = os.environ.get("rmap_link_prefix", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+=== server.x_create_app__mutmut_143 ===
+# server.x_create_app__mutmut_143: survived
+--- src/server.py
++++ src/server.py
+@@ -20,7 +20,7 @@
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+-    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
++    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "XXhttp://localhost:5000/api/get-version/XX")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+=== server.x_create_app__mutmut_144 ===
+# server.x_create_app__mutmut_144: survived
+--- src/server.py
++++ src/server.py
+@@ -20,7 +20,7 @@
+     app.config["RMAP_SERVER_PUB"] = os.environ.get("RMAP_SERVER_PUB", "/app/server_pub.asc")
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+-    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
++    app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "HTTP://LOCALHOST:5000/API/GET-VERSION/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+=== server.x_create_app__mutmut_145 ===
+# server.x_create_app__mutmut_145: survived
+--- src/server.py
++++ src/server.py
+@@ -21,7 +21,7 @@
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+-    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
++    app.config["RMAP_WATERMARK_KEY"] = None
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+     
+=== server.x_create_app__mutmut_146 ===
+# server.x_create_app__mutmut_146: survived
+--- src/server.py
++++ src/server.py
+@@ -21,7 +21,7 @@
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+-    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
++    app.config["XXRMAP_WATERMARK_KEYXX"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+     
+=== server.x_create_app__mutmut_147 ===
+# server.x_create_app__mutmut_147: survived
+--- src/server.py
++++ src/server.py
+@@ -21,7 +21,7 @@
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+-    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
++    app.config["rmap_watermark_key"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+     
+=== server.x_create_app__mutmut_149 ===
+# server.x_create_app__mutmut_149: survived
+--- src/server.py
++++ src/server.py
+@@ -21,7 +21,7 @@
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+-    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
++    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", None)
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+     
+=== server.x_create_app__mutmut_150 ===
+# server.x_create_app__mutmut_150: survived
+--- src/server.py
++++ src/server.py
+@@ -21,7 +21,7 @@
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+-    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
++    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+     
+=== server.x_create_app__mutmut_151 ===
+# server.x_create_app__mutmut_151: survived
+--- src/server.py
++++ src/server.py
+@@ -21,7 +21,7 @@
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+-    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
++    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", )
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+     
+=== server.x_create_app__mutmut_152 ===
+# server.x_create_app__mutmut_152: survived
+--- src/server.py
++++ src/server.py
+@@ -21,7 +21,7 @@
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+-    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
++    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("XXRMAP_WATERMARK_KEYXX", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+     
+=== server.x_create_app__mutmut_153 ===
+# server.x_create_app__mutmut_153: survived
+--- src/server.py
++++ src/server.py
+@@ -21,7 +21,7 @@
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+-    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
++    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("rmap_watermark_key", "dev-rmap-key-change-me")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+     
+=== server.x_create_app__mutmut_154 ===
+# server.x_create_app__mutmut_154: survived
+--- src/server.py
++++ src/server.py
+@@ -21,7 +21,7 @@
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+-    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
++    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "XXdev-rmap-key-change-meXX")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+     
+=== server.x_create_app__mutmut_155 ===
+# server.x_create_app__mutmut_155: survived
+--- src/server.py
++++ src/server.py
+@@ -21,7 +21,7 @@
+     app.config["RMAP_SERVER_PRIV"] = os.environ.get("RMAP_SERVER_PRIV", "/app/server_priv.asc")
+     app.config["RMAP_CLIENTS_DIR"] = os.environ.get("RMAP_CLIENTS_DIR", "/app/clients")
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+-    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
++    app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "DEV-RMAP-KEY-CHANGE-ME")
+ 
+     app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
+     
+=== server.x_create_app__mutmut_156 ===
+# server.x_create_app__mutmut_156: survived
+--- src/server.py
++++ src/server.py
+@@ -23,7 +23,7 @@
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+-    app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
++    app.config["STORAGE_DIR"].mkdir(parents=None, exist_ok=True)
+     
+     
+ 
+=== server.x_create_app__mutmut_158 ===
+# server.x_create_app__mutmut_158: survived
+--- src/server.py
++++ src/server.py
+@@ -23,7 +23,7 @@
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+-    app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
++    app.config["STORAGE_DIR"].mkdir(exist_ok=True)
+     
+     
+ 
+=== server.x_create_app__mutmut_162 ===
+# server.x_create_app__mutmut_162: survived
+--- src/server.py
++++ src/server.py
+@@ -23,7 +23,7 @@
+     app.config["RMAP_LINK_PREFIX"] = os.environ.get("RMAP_LINK_PREFIX", "http://localhost:5000/api/get-version/")
+     app.config["RMAP_WATERMARK_KEY"] = os.environ.get("RMAP_WATERMARK_KEY", "dev-rmap-key-change-me")
+ 
+-    app.config["STORAGE_DIR"].mkdir(parents=True, exist_ok=True)
++    app.config["STORAGE_DIR"].mkdir(parents=False, exist_ok=True)
+     
+     
+ 
+=== server.x_create_app__mutmut_164 ===
+# server.x_create_app__mutmut_164: survived
+--- src/server.py
++++ src/server.py
+@@ -30,7 +30,7 @@
+     # --- DB engine only (no Table metadata) ---
+     def db_url() -> str:
+         return (
+-            f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
++            f"mysql+pymysql://{app.config['XXDB_USERXX']}:{app.config['DB_PASSWORD']}"
+             f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
+         )
+ 
+=== server.x_create_app__mutmut_165 ===
+# server.x_create_app__mutmut_165: survived
+--- src/server.py
++++ src/server.py
+@@ -30,7 +30,7 @@
+     # --- DB engine only (no Table metadata) ---
+     def db_url() -> str:
+         return (
+-            f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
++            f"mysql+pymysql://{app.config['db_user']}:{app.config['DB_PASSWORD']}"
+             f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
+         )
+ 
+=== server.x_create_app__mutmut_166 ===
+# server.x_create_app__mutmut_166: survived
+--- src/server.py
++++ src/server.py
+@@ -30,7 +30,7 @@
+     # --- DB engine only (no Table metadata) ---
+     def db_url() -> str:
+         return (
+-            f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
++            f"mysql+pymysql://{app.config['DB_USER']}:{app.config['XXDB_PASSWORDXX']}"
+             f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
+         )
+ 
+=== server.x_create_app__mutmut_167 ===
+# server.x_create_app__mutmut_167: survived
+--- src/server.py
++++ src/server.py
+@@ -30,7 +30,7 @@
+     # --- DB engine only (no Table metadata) ---
+     def db_url() -> str:
+         return (
+-            f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
++            f"mysql+pymysql://{app.config['DB_USER']}:{app.config['db_password']}"
+             f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
+         )
+ 
+=== server.x_create_app__mutmut_168 ===
+# server.x_create_app__mutmut_168: survived
+--- src/server.py
++++ src/server.py
+@@ -31,7 +31,7 @@
+     def db_url() -> str:
+         return (
+             f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
+-            f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
++            f"@{app.config['XXDB_HOSTXX']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
+         )
+ 
+     def get_engine():
+=== server.x_create_app__mutmut_169 ===
+# server.x_create_app__mutmut_169: survived
+--- src/server.py
++++ src/server.py
+@@ -31,7 +31,7 @@
+     def db_url() -> str:
+         return (
+             f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
+-            f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
++            f"@{app.config['db_host']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
+         )
+ 
+     def get_engine():
+=== server.x_create_app__mutmut_170 ===
+# server.x_create_app__mutmut_170: survived
+--- src/server.py
++++ src/server.py
+@@ -31,7 +31,7 @@
+     def db_url() -> str:
+         return (
+             f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
+-            f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
++            f"@{app.config['DB_HOST']}:{app.config['XXDB_PORTXX']}/{app.config['DB_NAME']}?charset=utf8mb4"
+         )
+ 
+     def get_engine():
+=== server.x_create_app__mutmut_171 ===
+# server.x_create_app__mutmut_171: survived
+--- src/server.py
++++ src/server.py
+@@ -31,7 +31,7 @@
+     def db_url() -> str:
+         return (
+             f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
+-            f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
++            f"@{app.config['DB_HOST']}:{app.config['db_port']}/{app.config['DB_NAME']}?charset=utf8mb4"
+         )
+ 
+     def get_engine():
+=== server.x_create_app__mutmut_172 ===
+# server.x_create_app__mutmut_172: survived
+--- src/server.py
++++ src/server.py
+@@ -31,7 +31,7 @@
+     def db_url() -> str:
+         return (
+             f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
+-            f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
++            f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['XXDB_NAMEXX']}?charset=utf8mb4"
+         )
+ 
+     def get_engine():
+=== server.x_create_app__mutmut_173 ===
+# server.x_create_app__mutmut_173: survived
+--- src/server.py
++++ src/server.py
+@@ -31,7 +31,7 @@
+     def db_url() -> str:
+         return (
+             f"mysql+pymysql://{app.config['DB_USER']}:{app.config['DB_PASSWORD']}"
+-            f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['DB_NAME']}?charset=utf8mb4"
++            f"@{app.config['DB_HOST']}:{app.config['DB_PORT']}/{app.config['db_name']}?charset=utf8mb4"
+         )
+ 
+     def get_engine():
+=== server.x_create_app__mutmut_174 ===
+# server.x_create_app__mutmut_174: survived
+--- src/server.py
++++ src/server.py
+@@ -35,7 +35,7 @@
+         )
+ 
+     def get_engine():
+-        eng = app.config.get("_ENGINE")
++        eng = None
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+=== server.x_create_app__mutmut_175 ===
+# server.x_create_app__mutmut_175: survived
+--- src/server.py
++++ src/server.py
+@@ -35,7 +35,7 @@
+         )
+ 
+     def get_engine():
+-        eng = app.config.get("_ENGINE")
++        eng = app.config.get(None)
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+=== server.x_create_app__mutmut_176 ===
+# server.x_create_app__mutmut_176: survived
+--- src/server.py
++++ src/server.py
+@@ -35,7 +35,7 @@
+         )
+ 
+     def get_engine():
+-        eng = app.config.get("_ENGINE")
++        eng = app.config.get("XX_ENGINEXX")
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+=== server.x_create_app__mutmut_177 ===
+# server.x_create_app__mutmut_177: survived
+--- src/server.py
++++ src/server.py
+@@ -35,7 +35,7 @@
+         )
+ 
+     def get_engine():
+-        eng = app.config.get("_ENGINE")
++        eng = app.config.get("_engine")
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+=== server.x_create_app__mutmut_178 ===
+# server.x_create_app__mutmut_178: survived
+--- src/server.py
++++ src/server.py
+@@ -36,7 +36,7 @@
+ 
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+-        if eng is None:
++        if eng is not None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+         return eng
+=== server.x_create_app__mutmut_179 ===
+# server.x_create_app__mutmut_179: survived
+--- src/server.py
++++ src/server.py
+@@ -37,7 +37,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = None
+             app.config["_ENGINE"] = eng
+         return eng
+     
+=== server.x_create_app__mutmut_180 ===
+# server.x_create_app__mutmut_180: survived
+--- src/server.py
++++ src/server.py
+@@ -37,7 +37,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(None, pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+         return eng
+     
+=== server.x_create_app__mutmut_181 ===
+# server.x_create_app__mutmut_181: survived
+--- src/server.py
++++ src/server.py
+@@ -37,7 +37,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(db_url(), pool_pre_ping=None, future=True)
+             app.config["_ENGINE"] = eng
+         return eng
+     
+=== server.x_create_app__mutmut_182 ===
+# server.x_create_app__mutmut_182: survived
+--- src/server.py
++++ src/server.py
+@@ -37,7 +37,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(db_url(), pool_pre_ping=True, future=None)
+             app.config["_ENGINE"] = eng
+         return eng
+     
+=== server.x_create_app__mutmut_183 ===
+# server.x_create_app__mutmut_183: survived
+--- src/server.py
++++ src/server.py
+@@ -37,7 +37,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(pool_pre_ping=True, future=True)
+             app.config["_ENGINE"] = eng
+         return eng
+     
+=== server.x_create_app__mutmut_184 ===
+# server.x_create_app__mutmut_184: survived
+--- src/server.py
++++ src/server.py
+@@ -37,7 +37,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(db_url(), future=True)
+             app.config["_ENGINE"] = eng
+         return eng
+     
+=== server.x_create_app__mutmut_185 ===
+# server.x_create_app__mutmut_185: survived
+--- src/server.py
++++ src/server.py
+@@ -37,7 +37,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(db_url(), pool_pre_ping=True, )
+             app.config["_ENGINE"] = eng
+         return eng
+     
+=== server.x_create_app__mutmut_186 ===
+# server.x_create_app__mutmut_186: survived
+--- src/server.py
++++ src/server.py
+@@ -37,7 +37,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(db_url(), pool_pre_ping=False, future=True)
+             app.config["_ENGINE"] = eng
+         return eng
+     
+=== server.x_create_app__mutmut_187 ===
+# server.x_create_app__mutmut_187: survived
+--- src/server.py
++++ src/server.py
+@@ -37,7 +37,7 @@
+     def get_engine():
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+-            eng = create_engine(db_url(), pool_pre_ping=True, future=True)
++            eng = create_engine(db_url(), pool_pre_ping=True, future=False)
+             app.config["_ENGINE"] = eng
+         return eng
+     
+=== server.x_create_app__mutmut_188 ===
+# server.x_create_app__mutmut_188: survived
+--- src/server.py
++++ src/server.py
+@@ -38,7 +38,7 @@
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+-            app.config["_ENGINE"] = eng
++            app.config["_ENGINE"] = None
+         return eng
+     
+     # --- RMAP instance ----
+=== server.x_create_app__mutmut_189 ===
+# server.x_create_app__mutmut_189: survived
+--- src/server.py
++++ src/server.py
+@@ -38,7 +38,7 @@
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+-            app.config["_ENGINE"] = eng
++            app.config["XX_ENGINEXX"] = eng
+         return eng
+     
+     # --- RMAP instance ----
+=== server.x_create_app__mutmut_190 ===
+# server.x_create_app__mutmut_190: survived
+--- src/server.py
++++ src/server.py
+@@ -38,7 +38,7 @@
+         eng = app.config.get("_ENGINE")
+         if eng is None:
+             eng = create_engine(db_url(), pool_pre_ping=True, future=True)
+-            app.config["_ENGINE"] = eng
++            app.config["_engine"] = eng
+         return eng
+     
+     # --- RMAP instance ----
+=== server.x_create_app__mutmut_191 ===
+# server.x_create_app__mutmut_191: survived
+--- src/server.py
++++ src/server.py
+@@ -43,7 +43,7 @@
+     
+     # --- RMAP instance ----
+     def get_rmap_server():
+-        rs = app.config.get("_RMAP_SERVER")
++        rs = None
+         if rs is None:
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+=== server.x_create_app__mutmut_192 ===
+# server.x_create_app__mutmut_192: survived
+--- src/server.py
++++ src/server.py
+@@ -43,7 +43,7 @@
+     
+     # --- RMAP instance ----
+     def get_rmap_server():
+-        rs = app.config.get("_RMAP_SERVER")
++        rs = app.config.get(None)
+         if rs is None:
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+=== server.x_create_app__mutmut_193 ===
+# server.x_create_app__mutmut_193: survived
+--- src/server.py
++++ src/server.py
+@@ -43,7 +43,7 @@
+     
+     # --- RMAP instance ----
+     def get_rmap_server():
+-        rs = app.config.get("_RMAP_SERVER")
++        rs = app.config.get("XX_RMAP_SERVERXX")
+         if rs is None:
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+=== server.x_create_app__mutmut_194 ===
+# server.x_create_app__mutmut_194: survived
+--- src/server.py
++++ src/server.py
+@@ -43,7 +43,7 @@
+     
+     # --- RMAP instance ----
+     def get_rmap_server():
+-        rs = app.config.get("_RMAP_SERVER")
++        rs = app.config.get("_rmap_server")
+         if rs is None:
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+=== server.x_create_app__mutmut_195 ===
+# server.x_create_app__mutmut_195: survived
+--- src/server.py
++++ src/server.py
+@@ -44,7 +44,7 @@
+     # --- RMAP instance ----
+     def get_rmap_server():
+         rs = app.config.get("_RMAP_SERVER")
+-        if rs is None:
++        if rs is not None:
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+                 app.config["RMAP_SERVER_PRIV"],
+=== server.x_create_app__mutmut_196 ===
+# server.x_create_app__mutmut_196: survived
+--- src/server.py
++++ src/server.py
+@@ -45,12 +45,7 @@
+     def get_rmap_server():
+         rs = app.config.get("_RMAP_SERVER")
+         if rs is None:
+-            rs = RMAPServer(
+-                app.config["RMAP_SERVER_PUB"],
+-                app.config["RMAP_SERVER_PRIV"],
+-                linkPrefix=app.config["RMAP_LINK_PREFIX"],
+-                verbose=False,
+-            )
++            rs = None
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+             app.config["_RMAP_SERVER"] = rs
+         return rs
+=== server.x_create_app__mutmut_197 ===
+# server.x_create_app__mutmut_197: survived
+--- src/server.py
++++ src/server.py
+@@ -46,7 +46,7 @@
+         rs = app.config.get("_RMAP_SERVER")
+         if rs is None:
+             rs = RMAPServer(
+-                app.config["RMAP_SERVER_PUB"],
++                None,
+                 app.config["RMAP_SERVER_PRIV"],
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+=== server.x_create_app__mutmut_198 ===
+# server.x_create_app__mutmut_198: survived
+--- src/server.py
++++ src/server.py
+@@ -47,7 +47,7 @@
+         if rs is None:
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+-                app.config["RMAP_SERVER_PRIV"],
++                None,
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+             )
+=== server.x_create_app__mutmut_199 ===
+# server.x_create_app__mutmut_199: survived
+--- src/server.py
++++ src/server.py
+@@ -48,7 +48,7 @@
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+                 app.config["RMAP_SERVER_PRIV"],
+-                linkPrefix=app.config["RMAP_LINK_PREFIX"],
++                linkPrefix=None,
+                 verbose=False,
+             )
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+=== server.x_create_app__mutmut_200 ===
+# server.x_create_app__mutmut_200: survived
+--- src/server.py
++++ src/server.py
+@@ -49,7 +49,7 @@
+                 app.config["RMAP_SERVER_PUB"],
+                 app.config["RMAP_SERVER_PRIV"],
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+-                verbose=False,
++                verbose=None,
+             )
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+             app.config["_RMAP_SERVER"] = rs
+=== server.x_create_app__mutmut_201 ===
+# server.x_create_app__mutmut_201: survived
+--- src/server.py
++++ src/server.py
+@@ -46,7 +46,6 @@
+         rs = app.config.get("_RMAP_SERVER")
+         if rs is None:
+             rs = RMAPServer(
+-                app.config["RMAP_SERVER_PUB"],
+                 app.config["RMAP_SERVER_PRIV"],
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+=== server.x_create_app__mutmut_202 ===
+# server.x_create_app__mutmut_202: survived
+--- src/server.py
++++ src/server.py
+@@ -47,7 +47,6 @@
+         if rs is None:
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+-                app.config["RMAP_SERVER_PRIV"],
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+             )
+=== server.x_create_app__mutmut_203 ===
+# server.x_create_app__mutmut_203: survived
+--- src/server.py
++++ src/server.py
+@@ -48,7 +48,6 @@
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+                 app.config["RMAP_SERVER_PRIV"],
+-                linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+             )
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+=== server.x_create_app__mutmut_204 ===
+# server.x_create_app__mutmut_204: survived
+--- src/server.py
++++ src/server.py
+@@ -49,8 +49,7 @@
+                 app.config["RMAP_SERVER_PUB"],
+                 app.config["RMAP_SERVER_PRIV"],
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+-                verbose=False,
+-            )
++                )
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+             app.config["_RMAP_SERVER"] = rs
+         return rs
+=== server.x_create_app__mutmut_205 ===
+# server.x_create_app__mutmut_205: survived
+--- src/server.py
++++ src/server.py
+@@ -46,7 +46,7 @@
+         rs = app.config.get("_RMAP_SERVER")
+         if rs is None:
+             rs = RMAPServer(
+-                app.config["RMAP_SERVER_PUB"],
++                app.config["XXRMAP_SERVER_PUBXX"],
+                 app.config["RMAP_SERVER_PRIV"],
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+=== server.x_create_app__mutmut_206 ===
+# server.x_create_app__mutmut_206: survived
+--- src/server.py
++++ src/server.py
+@@ -46,7 +46,7 @@
+         rs = app.config.get("_RMAP_SERVER")
+         if rs is None:
+             rs = RMAPServer(
+-                app.config["RMAP_SERVER_PUB"],
++                app.config["rmap_server_pub"],
+                 app.config["RMAP_SERVER_PRIV"],
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+=== server.x_create_app__mutmut_207 ===
+# server.x_create_app__mutmut_207: survived
+--- src/server.py
++++ src/server.py
+@@ -47,7 +47,7 @@
+         if rs is None:
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+-                app.config["RMAP_SERVER_PRIV"],
++                app.config["XXRMAP_SERVER_PRIVXX"],
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+             )
+=== server.x_create_app__mutmut_208 ===
+# server.x_create_app__mutmut_208: survived
+--- src/server.py
++++ src/server.py
+@@ -47,7 +47,7 @@
+         if rs is None:
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+-                app.config["RMAP_SERVER_PRIV"],
++                app.config["rmap_server_priv"],
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+             )
+=== server.x_create_app__mutmut_209 ===
+# server.x_create_app__mutmut_209: survived
+--- src/server.py
++++ src/server.py
+@@ -48,7 +48,7 @@
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+                 app.config["RMAP_SERVER_PRIV"],
+-                linkPrefix=app.config["RMAP_LINK_PREFIX"],
++                linkPrefix=app.config["XXRMAP_LINK_PREFIXXX"],
+                 verbose=False,
+             )
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+=== server.x_create_app__mutmut_210 ===
+# server.x_create_app__mutmut_210: survived
+--- src/server.py
++++ src/server.py
+@@ -48,7 +48,7 @@
+             rs = RMAPServer(
+                 app.config["RMAP_SERVER_PUB"],
+                 app.config["RMAP_SERVER_PRIV"],
+-                linkPrefix=app.config["RMAP_LINK_PREFIX"],
++                linkPrefix=app.config["rmap_link_prefix"],
+                 verbose=False,
+             )
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+=== server.x_create_app__mutmut_211 ===
+# server.x_create_app__mutmut_211: survived
+--- src/server.py
++++ src/server.py
+@@ -49,7 +49,7 @@
+                 app.config["RMAP_SERVER_PUB"],
+                 app.config["RMAP_SERVER_PRIV"],
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+-                verbose=False,
++                verbose=True,
+             )
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+             app.config["_RMAP_SERVER"] = rs
+=== server.x_create_app__mutmut_212 ===
+# server.x_create_app__mutmut_212: survived
+--- src/server.py
++++ src/server.py
+@@ -51,7 +51,7 @@
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+             )
+-            rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
++            rs.loadIdentities(None)
+             app.config["_RMAP_SERVER"] = rs
+         return rs
+     
+=== server.x_create_app__mutmut_213 ===
+# server.x_create_app__mutmut_213: survived
+--- src/server.py
++++ src/server.py
+@@ -51,7 +51,7 @@
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+             )
+-            rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
++            rs.loadIdentities(app.config["XXRMAP_CLIENTS_DIRXX"])
+             app.config["_RMAP_SERVER"] = rs
+         return rs
+     
+=== server.x_create_app__mutmut_214 ===
+# server.x_create_app__mutmut_214: survived
+--- src/server.py
++++ src/server.py
+@@ -51,7 +51,7 @@
+                 linkPrefix=app.config["RMAP_LINK_PREFIX"],
+                 verbose=False,
+             )
+-            rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
++            rs.loadIdentities(app.config["rmap_clients_dir"])
+             app.config["_RMAP_SERVER"] = rs
+         return rs
+     
+=== server.x_create_app__mutmut_215 ===
+# server.x_create_app__mutmut_215: survived
+--- src/server.py
++++ src/server.py
+@@ -52,7 +52,7 @@
+                 verbose=False,
+             )
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+-            app.config["_RMAP_SERVER"] = rs
++            app.config["_RMAP_SERVER"] = None
+         return rs
+     
+     #RMAP initiate
+=== server.x_create_app__mutmut_216 ===
+# server.x_create_app__mutmut_216: survived
+--- src/server.py
++++ src/server.py
+@@ -52,7 +52,7 @@
+                 verbose=False,
+             )
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+-            app.config["_RMAP_SERVER"] = rs
++            app.config["XX_RMAP_SERVERXX"] = rs
+         return rs
+     
+     #RMAP initiate
+=== server.x_create_app__mutmut_217 ===
+# server.x_create_app__mutmut_217: survived
+--- src/server.py
++++ src/server.py
+@@ -52,7 +52,7 @@
+                 verbose=False,
+             )
+             rs.loadIdentities(app.config["RMAP_CLIENTS_DIR"])
+-            app.config["_RMAP_SERVER"] = rs
++            app.config["_rmap_server"] = rs
+         return rs
+     
+     #RMAP initiate
+=== server.x_create_app__mutmut_219 ===
+# server.x_create_app__mutmut_219: survived
+--- src/server.py
++++ src/server.py
+@@ -158,7 +158,7 @@
+ 
+     # --- Helpers ---
+     def _serializer():
+-        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
++        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt=None)
+ 
+     def _auth_error(msg: str, code: int = 401):
+         return jsonify({"error": msg}), code
+=== server.x_create_app__mutmut_221 ===
+# server.x_create_app__mutmut_221: survived
+--- src/server.py
++++ src/server.py
+@@ -158,7 +158,7 @@
+ 
+     # --- Helpers ---
+     def _serializer():
+-        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
++        return URLSafeTimedSerializer(app.config["SECRET_KEY"], )
+ 
+     def _auth_error(msg: str, code: int = 401):
+         return jsonify({"error": msg}), code
+=== server.x_create_app__mutmut_224 ===
+# server.x_create_app__mutmut_224: survived
+--- src/server.py
++++ src/server.py
+@@ -158,7 +158,7 @@
+ 
+     # --- Helpers ---
+     def _serializer():
+-        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
++        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="XXtatou-authXX")
+ 
+     def _auth_error(msg: str, code: int = 401):
+         return jsonify({"error": msg}), code
+=== server.x_create_app__mutmut_225 ===
+# server.x_create_app__mutmut_225: survived
+--- src/server.py
++++ src/server.py
+@@ -158,7 +158,7 @@
+ 
+     # --- Helpers ---
+     def _serializer():
+-        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
++        return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="TATOU-AUTH")
+ 
+     def _auth_error(msg: str, code: int = 401):
+         return jsonify({"error": msg}), code
+=== server.x_create_app__mutmut_226 ===
+# server.x_create_app__mutmut_226: survived
+--- src/server.py
++++ src/server.py
+@@ -160,7 +160,7 @@
+     def _serializer():
+         return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
+ 
+-    def _auth_error(msg: str, code: int = 401):
++    def _auth_error(msg: str, code: int = 402):
+         return jsonify({"error": msg}), code
+ 
+     def require_auth(f):
+=== server.x_create_app__mutmut_228 ===
+# server.x_create_app__mutmut_228: survived
+--- src/server.py
++++ src/server.py
+@@ -161,7 +161,7 @@
+         return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
+ 
+     def _auth_error(msg: str, code: int = 401):
+-        return jsonify({"error": msg}), code
++        return jsonify({"XXerrorXX": msg}), code
+ 
+     def require_auth(f):
+         @wraps(f)
+=== server.x_create_app__mutmut_229 ===
+# server.x_create_app__mutmut_229: survived
+--- src/server.py
++++ src/server.py
+@@ -161,7 +161,7 @@
+         return URLSafeTimedSerializer(app.config["SECRET_KEY"], salt="tatou-auth")
+ 
+     def _auth_error(msg: str, code: int = 401):
+-        return jsonify({"error": msg}), code
++        return jsonify({"ERROR": msg}), code
+ 
+     def require_auth(f):
+         @wraps(f)
+=== server.x_create_app__mutmut_230 ===
+# server.x_create_app__mutmut_230: survived
+--- src/server.py
++++ src/server.py
+@@ -181,7 +181,7 @@
+         return wrapper
+ 
+     def _sha256_file(path: Path) -> str:
+-        h = hashlib.sha256()
++        h = None
+         with path.open("rb") as f:
+             for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                 h.update(chunk)
+=== server.x_create_app__mutmut_231 ===
+# server.x_create_app__mutmut_231: survived
+--- src/server.py
++++ src/server.py
+@@ -182,7 +182,7 @@
+ 
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+-        with path.open("rb") as f:
++        with path.open(None) as f:
+             for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                 h.update(chunk)
+         return h.hexdigest()
+=== server.x_create_app__mutmut_232 ===
+# server.x_create_app__mutmut_232: survived
+--- src/server.py
++++ src/server.py
+@@ -182,7 +182,7 @@
+ 
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+-        with path.open("rb") as f:
++        with path.open("XXrbXX") as f:
+             for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                 h.update(chunk)
+         return h.hexdigest()
+=== server.x_create_app__mutmut_233 ===
+# server.x_create_app__mutmut_233: survived
+--- src/server.py
++++ src/server.py
+@@ -182,7 +182,7 @@
+ 
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+-        with path.open("rb") as f:
++        with path.open("RB") as f:
+             for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                 h.update(chunk)
+         return h.hexdigest()
+=== server.x_create_app__mutmut_234 ===
+# server.x_create_app__mutmut_234: survived
+--- src/server.py
++++ src/server.py
+@@ -183,7 +183,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(None, b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+=== server.x_create_app__mutmut_235 ===
+# server.x_create_app__mutmut_235: survived
+--- src/server.py
++++ src/server.py
+@@ -183,7 +183,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: f.read(1024 * 1024), None):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+=== server.x_create_app__mutmut_236 ===
+# server.x_create_app__mutmut_236: survived
+--- src/server.py
++++ src/server.py
+@@ -183,7 +183,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+=== server.x_create_app__mutmut_237 ===
+# server.x_create_app__mutmut_237: survived
+--- src/server.py
++++ src/server.py
+@@ -183,7 +183,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: f.read(1024 * 1024), ):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+=== server.x_create_app__mutmut_238 ===
+# server.x_create_app__mutmut_238: survived
+--- src/server.py
++++ src/server.py
+@@ -183,7 +183,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: None, b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+=== server.x_create_app__mutmut_239 ===
+# server.x_create_app__mutmut_239: survived
+--- src/server.py
++++ src/server.py
+@@ -183,7 +183,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: f.read(None), b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+=== server.x_create_app__mutmut_240 ===
+# server.x_create_app__mutmut_240: survived
+--- src/server.py
++++ src/server.py
+@@ -183,7 +183,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: f.read(1024 / 1024), b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+=== server.x_create_app__mutmut_241 ===
+# server.x_create_app__mutmut_241: survived
+--- src/server.py
++++ src/server.py
+@@ -183,7 +183,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: f.read(1025 * 1024), b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+=== server.x_create_app__mutmut_242 ===
+# server.x_create_app__mutmut_242: survived
+--- src/server.py
++++ src/server.py
+@@ -183,7 +183,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: f.read(1024 * 1025), b""):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+=== server.x_create_app__mutmut_243 ===
+# server.x_create_app__mutmut_243: survived
+--- src/server.py
++++ src/server.py
+@@ -183,7 +183,7 @@
+     def _sha256_file(path: Path) -> str:
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+-            for chunk in iter(lambda: f.read(1024 * 1024), b""):
++            for chunk in iter(lambda: f.read(1024 * 1024), b"XXXX"):
+                 h.update(chunk)
+         return h.hexdigest()
+ 
+=== server.x_create_app__mutmut_244 ===
+# server.x_create_app__mutmut_244: survived
+--- src/server.py
++++ src/server.py
+@@ -184,7 +184,7 @@
+         h = hashlib.sha256()
+         with path.open("rb") as f:
+             for chunk in iter(lambda: f.read(1024 * 1024), b""):
+-                h.update(chunk)
++                h.update(None)
+         return h.hexdigest()
+ 
+     # --- Routes ---
+=== server.x_create_app__mutmut_245 ===
+# server.x_create_app__mutmut_245: survived
+--- src/server.py
++++ src/server.py
+@@ -538,7 +538,7 @@
+     
+     # Helper: resolve path safely under STORAGE_DIR (handles absolute/relative)
+     def _safe_resolve_under_storage(p: str, storage_root: Path) -> Path:
+-        storage_root = storage_root.resolve()
++        storage_root = None
+         fp = Path(p)
+         if not fp.is_absolute():
+             fp = storage_root / fp
+=== server.x_create_app__mutmut_246 ===
+# server.x_create_app__mutmut_246: survived
+--- src/server.py
++++ src/server.py
+@@ -539,7 +539,7 @@
+     # Helper: resolve path safely under STORAGE_DIR (handles absolute/relative)
+     def _safe_resolve_under_storage(p: str, storage_root: Path) -> Path:
+         storage_root = storage_root.resolve()
+-        fp = Path(p)
++        fp = None
+         if not fp.is_absolute():
+             fp = storage_root / fp
+         fp = fp.resolve()
+=== server.x_create_app__mutmut_247 ===
+# server.x_create_app__mutmut_247: survived
+--- src/server.py
++++ src/server.py
+@@ -539,7 +539,7 @@
+     # Helper: resolve path safely under STORAGE_DIR (handles absolute/relative)
+     def _safe_resolve_under_storage(p: str, storage_root: Path) -> Path:
+         storage_root = storage_root.resolve()
+-        fp = Path(p)
++        fp = Path(None)
+         if not fp.is_absolute():
+             fp = storage_root / fp
+         fp = fp.resolve()
+=== server.x_create_app__mutmut_248 ===
+# server.x_create_app__mutmut_248: survived
+--- src/server.py
++++ src/server.py
+@@ -540,7 +540,7 @@
+     def _safe_resolve_under_storage(p: str, storage_root: Path) -> Path:
+         storage_root = storage_root.resolve()
+         fp = Path(p)
+-        if not fp.is_absolute():
++        if fp.is_absolute():
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+=== server.x_create_app__mutmut_249 ===
+# server.x_create_app__mutmut_249: survived
+--- src/server.py
++++ src/server.py
+@@ -541,7 +541,7 @@
+         storage_root = storage_root.resolve()
+         fp = Path(p)
+         if not fp.is_absolute():
+-            fp = storage_root / fp
++            fp = None
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+=== server.x_create_app__mutmut_250 ===
+# server.x_create_app__mutmut_250: survived
+--- src/server.py
++++ src/server.py
+@@ -541,7 +541,7 @@
+         storage_root = storage_root.resolve()
+         fp = Path(p)
+         if not fp.is_absolute():
+-            fp = storage_root / fp
++            fp = storage_root * fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+=== server.x_create_app__mutmut_251 ===
+# server.x_create_app__mutmut_251: survived
+--- src/server.py
++++ src/server.py
+@@ -542,7 +542,7 @@
+         fp = Path(p)
+         if not fp.is_absolute():
+             fp = storage_root / fp
+-        fp = fp.resolve()
++        fp = None
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+             if not fp.is_relative_to(storage_root):
+=== server.x_create_app__mutmut_252 ===
+# server.x_create_app__mutmut_252: survived
+--- src/server.py
++++ src/server.py
+@@ -544,7 +544,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr(None, "is_relative_to"):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+=== server.x_create_app__mutmut_253 ===
+# server.x_create_app__mutmut_253: survived
+--- src/server.py
++++ src/server.py
+@@ -544,7 +544,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr(fp, None):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+=== server.x_create_app__mutmut_254 ===
+# server.x_create_app__mutmut_254: survived
+--- src/server.py
++++ src/server.py
+@@ -544,7 +544,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr("is_relative_to"):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+=== server.x_create_app__mutmut_255 ===
+# server.x_create_app__mutmut_255: survived
+--- src/server.py
++++ src/server.py
+@@ -544,7 +544,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr(fp, ):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+=== server.x_create_app__mutmut_256 ===
+# server.x_create_app__mutmut_256: survived
+--- src/server.py
++++ src/server.py
+@@ -544,7 +544,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr(fp, "XXis_relative_toXX"):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+=== server.x_create_app__mutmut_257 ===
+# server.x_create_app__mutmut_257: survived
+--- src/server.py
++++ src/server.py
+@@ -544,7 +544,7 @@
+             fp = storage_root / fp
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+-        if hasattr(fp, "is_relative_to"):
++        if hasattr(fp, "IS_RELATIVE_TO"):
+             if not fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+=== server.x_create_app__mutmut_258 ===
+# server.x_create_app__mutmut_258: survived
+--- src/server.py
++++ src/server.py
+@@ -545,7 +545,7 @@
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+-            if not fp.is_relative_to(storage_root):
++            if fp.is_relative_to(storage_root):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+             try:
+=== server.x_create_app__mutmut_259 ===
+# server.x_create_app__mutmut_259: survived
+--- src/server.py
++++ src/server.py
+@@ -545,7 +545,7 @@
+         fp = fp.resolve()
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+-            if not fp.is_relative_to(storage_root):
++            if not fp.is_relative_to(None):
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+             try:
+=== server.x_create_app__mutmut_260 ===
+# server.x_create_app__mutmut_260: survived
+--- src/server.py
++++ src/server.py
+@@ -546,7 +546,7 @@
+         # Python 3.12 has is_relative_to on Path
+         if hasattr(fp, "is_relative_to"):
+             if not fp.is_relative_to(storage_root):
+-                raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
++                raise RuntimeError(None)
+         else:
+             try:
+                 fp.relative_to(storage_root)
+=== server.x_create_app__mutmut_261 ===
+# server.x_create_app__mutmut_261: survived
+--- src/server.py
++++ src/server.py
+@@ -549,7 +549,7 @@
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         else:
+             try:
+-                fp.relative_to(storage_root)
++                fp.relative_to(None)
+             except ValueError:
+                 raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
+         return fp
+=== server.x_create_app__mutmut_262 ===
+# server.x_create_app__mutmut_262: survived
+--- src/server.py
++++ src/server.py
+@@ -551,7 +551,7 @@
+             try:
+                 fp.relative_to(storage_root)
+             except ValueError:
+-                raise RuntimeError(f"path {fp} escapes storage root {storage_root}")
++                raise RuntimeError(None)
+         return fp
+ 
+     # DELETE /api/delete-document  (and variants)

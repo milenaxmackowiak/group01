@@ -52,14 +52,14 @@ def test_hanna_round_trip():
     watermarked = method.add_watermark(_blank_pdf(), secret="group-01", key="testkey")
     assert method.read_secret(watermarked, "testkey") == "group-01"
 
-#add_watermark must write the backup copy into the metadata
+#add_watermark has to write the backup copy into the metadata
 def test_hanna_writes_watermark_to_metadata():
     method = HannaWatermark()
     watermarked = method.add_watermark(_blank_pdf(), secret="group-01", key="testkey")
     doc = pymupdf.open(stream=watermarked, filetype="pdf")
     assert doc.metadata["keywords"].startswith(_WATER_MARKER_TAG)
 
-#Reading with the wrong key must fail with InvalidKeyError
+#Reading with the wrong key has to fail with InvalidKeyError
 def test_hanna_wrong_key_rejected():
     method = HannaWatermark()
     watermarked = method.add_watermark(_blank_pdf(), secret="group-01", key="testkey")

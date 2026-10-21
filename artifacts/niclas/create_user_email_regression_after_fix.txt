@@ -1,0 +1,53 @@
+# Regression tests AFTER fix (HEAD)
+# Command: SECRET_KEY=<set> python -m pytest -o addopts="" -v test/test_create_user_email_regression.py
+# Date: 2026-10-17T00:05:40+02:00   No MySQL DB running (DB_USER unset)
+
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0 -- /home/cosma/Documents/School/group01/venv/bin/python
+hypothesis profile 'default'
+rootdir: /home/cosma/Documents/School/group01/server
+configfile: pyproject.toml
+plugins: hypothesis-6.169.0
+collecting ... collected 32 items
+
+test/test_create_user_email_regression.py::test_non_string_email_rejected[123] PASSED [  3%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[0] PASSED [  6%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[1.5] PASSED [  9%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[None] PASSED [ 12%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[True] PASSED [ 15%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[False] PASSED [ 18%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[email6] PASSED [ 21%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[email7] PASSED [ 25%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[email8] PASSED [ 28%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[email9] PASSED [ 31%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[] PASSED [ 34%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[ ] PASSED [ 37%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[plainaddress] PASSED [ 40%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[user.example.com] PASSED [ 43%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[\x00] PASSED [ 46%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc] PASSED [ 50%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[user at example.com] PASSED [ 53%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[0] PASSED [ 56%]
+test/test_create_user_email_regression.py::test_valid_email_accepted[_@A.Gy] PASSED [ 59%]
+test/test_create_user_email_regression.py::test_valid_email_accepted[user@example.com] PASSED [ 62%]
+test/test_create_user_email_regression.py::test_valid_email_accepted[first.last+tag@sub.example.org] PASSED [ 65%]
+test/test_create_user_email_regression.py::test_unique_valid_email_accepted[_@A.Gy] PASSED [ 68%]
+test/test_create_user_email_regression.py::test_unique_valid_email_accepted[user@example.com] PASSED [ 71%]
+test/test_create_user_email_regression.py::test_unique_valid_email_accepted[first.last+tag@sub.example.org] PASSED [ 75%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[body0] PASSED [ 78%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[body1] PASSED [ 81%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[123] PASSED [ 84%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[1.5] PASSED [ 87%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[None] PASSED [ 90%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[True] PASSED [ 93%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[just a string] PASSED [ 96%]
+test/test_create_user_email_regression.py::test_null_body_rejected PASSED [100%]
+
+=============================== warnings summary ===============================
+../venv/lib64/python3.14/site-packages/pgpy/constants.py:5
+  /home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/pgpy/constants.py:5: DeprecationWarning: imghdr was removed in Python 3.13. Please be aware that you are currently NOT using standard 'imghdr', but instead a separately installed 'standard-imghdr'.
+    import imghdr
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================ Hypothesis Statistics =============================
+======================== 32 passed, 1 warning in 20.46s ========================

@@ -178,6 +178,27 @@ def test_token_ttl_read_from_env(monkeypatch):
     monkeypatch.setenv("TOKEN_TTL_SECONDS", "60")
     app = create_app()
     assert app.config["TOKEN_TTL_SECONDS"] == 60
+    
+import secrets
+
+def test_create_user_success():
+    client = app.test_client()
+    tag = secrets.token_hex(4)
+    payload = {
+        "login": f"user_{tag}",
+        "email": f"user_{tag}@example.com",
+        "password": "ValidPassword123!",
+    }
+
+    response = client.post("/api/create-user", json=payload)
+    
+    assert response.status_code == 201
+    data = response.get_json()
+    assert data["login"] == payload["login"]
+    assert data["email"] == payload["email"]
+    assert "password" not in data
+    assert "hpassword" not in data
+
 
 #test creat a user successfully
 def test_create_user_success():
@@ -232,6 +253,14 @@ def test_read_watermark_id():
     assert testuser.status_code == 201
 
     login = client.post("/api/login", json={"email": "user@readwmtest.com", "password": "test-pw"})
+    
+    
+def test_get_document():
+    client = app.test_client()
+    
+    testuser= client.post("/api/create-user", json={"login":"getdocument_user","password": "test-pw","email":"user@getdocumenttest.com",})
+    assert testuser.status_code == 201
+    login = client.post("/api/login", json={"email": "user@getdocumenttest.com", "password": "test-pw",})
     token = login.get_json()["token"]
     headers = {"Authorization": f"Bearer {token}"}
     
@@ -257,3 +286,36 @@ def test_read_watermark_id():
     resp = client.post(f"/api/read-watermark/{doc_id}", json={"key": "testkey"}, headers=headers)
     assert resp.status_code == 200
     assert resp.get_json()["secret"] == "testsecret"
+    assert upload.status_code == 201
+    doc_id = upload.get_json()["id"]
+
+    resp = client.get(f"/api/get-document/{doc_id}", headers=headers)
+    assert resp.status_code == 200
+    assert resp.mimetype == "application/pdf"
+    
+def test_static_file():
+    client = app.test_client()
+    resp = client.get("/style.css")
+    assert resp.status_code == 200
+    
+def test_static_file_not_found():
+    client = app.test_client()
+    resp = client.get("/does-not-exist.html")
+    assert resp.status_code == 404
+    
+    
+    
+#GET / should serve the frontend index.html
+def test_index_route():
+    client = app.test_client()
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.mimetype == "text/html"
+    assert response.data == (Path(app.static_folder) / "index.html").read_bytes()
+    response.close()
+
+#list-all-versions needs a login token
+def test_list_all_versions_requires_auth():
+    client = app.test_client()
+    response = client.get("/api/list-all-versions")
+    assert response.status_code == 401

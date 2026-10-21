@@ -1,0 +1,48 @@
+ Container group01-server-run-68a5f7621ab3 Creating 
+ Container group01-server-run-68a5f7621ab3 Created 
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: pip install --upgrade pip
+============================= test session starts ==============================
+platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0
+rootdir: /work
+configfile: pyproject.toml
+plugins: cov-7.1.0, hypothesis-6.170.0
+collected 71 items
+
+test/test_api.py ..............                                          [ 19%]
+test/test_create_user_email_regression.py .............................. [ 61%]
+..                                                                       [ 64%]
+test/test_hanna_watermark.py .......                                     [ 74%]
+test/test_security_regressions.py ...                                    [ 78%]
+test/test_watermarking_all_methods.py ...............                    [100%]
+
+=============================== warnings summary ===============================
+../usr/local/lib/python3.12/site-packages/pgpy/constants.py:5
+  /usr/local/lib/python3.12/site-packages/pgpy/constants.py:5: DeprecationWarning: 'imghdr' is deprecated and slated for removal in Python 3.13
+    import imghdr
+
+test/test_api.py::test_cant_list_someone_elses_versions
+test/test_api.py::test_cant_delete_someone_else_document
+  /work/src/server.py:327: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    ts = dt.datetime.utcnow().strftime("%Y%m%dT%H%M%S%fZ")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.15-final-0 _______________
+
+Name                                   Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------
+src/add_after_eof.py                      70     14    80%   69, 85, 87, 98, 119, 123, 131, 136-137, 140, 142, 148-149, 153
+src/hanna_watermark.py                    75      9    88%   25, 34, 36, 50-51, 73, 88, 96, 101
+src/milena_watermark.py                   66     10    85%   25, 34, 36, 45, 63, 72, 85, 89, 95-96
+src/niclas_watermark.py                   65     11    83%   26, 36, 38, 66, 72, 78, 83-84, 89-90, 92
+src/server.py                            502    232    54%   53, 72-83, 88-96, 100-184, 198, 203, 221, 225, 233-234, 273-274, 285, 293-294, 297, 307, 310, 316, 321, 360-361, 386-387, 407-411, 424-425, 442-463, 472-524, 530-572, 579, 586-590, 599, 606-607, 616-617, 630-638, 656-657, 675, 682-683, 696-697, 699, 713-714, 717, 723, 727-728, 730, 740-742, 754-756, 771-772, 796-802, 822-827, 835-899, 913-914
+src/unsafe_bash_bridge_append_eof.py      23      2    91%   35, 70
+src/watermarking_cli.py                  126    126     0%   28-243
+src/watermarking_method.py                41      8    80%   104-108, 113, 158, 199, 233, 260
+src/watermarking_utils.py                 82     48    41%   71, 83, 86-87, 119-120, 136, 164-246
+--------------------------------------------------------------------
+TOTAL                                   1050    460    56%
+======================== 71 passed, 3 warnings in 4.57s ========================

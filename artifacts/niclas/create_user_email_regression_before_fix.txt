@@ -1,0 +1,441 @@
+# Regression tests run against server.py BEFORE fix (f27787a^)
+# Command: SECRET_KEY=<set> python -m pytest -o addopts="" -v test/test_create_user_email_regression.py
+# Date: 2026-10-17T00:06:01+02:00   No MySQL DB running (DB_USER unset)
+
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0 -- /home/cosma/Documents/School/group01/venv/bin/python
+hypothesis profile 'default'
+rootdir: /tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server
+configfile: pyproject.toml
+plugins: hypothesis-6.169.0
+collecting ... collected 32 items
+
+test/test_create_user_email_regression.py::test_non_string_email_rejected[123] FAILED [  3%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[0] PASSED [  6%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[1.5] FAILED [  9%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[None] PASSED [ 12%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[True] FAILED [ 15%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[False] PASSED [ 18%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[email6] PASSED [ 21%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[email7] FAILED [ 25%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[email8] PASSED [ 28%]
+test/test_create_user_email_regression.py::test_non_string_email_rejected[email9] FAILED [ 31%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[] PASSED [ 34%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[ ] PASSED [ 37%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[plainaddress] FAILED [ 40%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[user.example.com] FAILED [ 43%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[\x00] FAILED [ 46%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc] FAILED [ 50%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[user at example.com] FAILED [ 53%]
+test/test_create_user_email_regression.py::test_email_without_at_rejected[0] FAILED [ 56%]
+test/test_create_user_email_regression.py::test_valid_email_accepted[_@A.Gy] PASSED [ 59%]
+test/test_create_user_email_regression.py::test_valid_email_accepted[user@example.com] PASSED [ 62%]
+test/test_create_user_email_regression.py::test_valid_email_accepted[first.last+tag@sub.example.org] PASSED [ 65%]
+test/test_create_user_email_regression.py::test_unique_valid_email_accepted[_@A.Gy] PASSED [ 68%]
+test/test_create_user_email_regression.py::test_unique_valid_email_accepted[user@example.com] PASSED [ 71%]
+test/test_create_user_email_regression.py::test_unique_valid_email_accepted[first.last+tag@sub.example.org] PASSED [ 75%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[body0] FAILED [ 78%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[body1] PASSED [ 81%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[123] FAILED [ 84%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[1.5] FAILED [ 87%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[None] PASSED [ 90%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[True] FAILED [ 93%]
+test/test_create_user_email_regression.py::test_non_object_body_rejected[just a string] FAILED [ 96%]
+test/test_create_user_email_regression.py::test_null_body_rejected PASSED [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_non_string_email_rejected[123] ______________________
+
+email = 123
+
+    @pytest.mark.parametrize("email", [123, 0, 1.5, None, True, False, [], ["a@b.com"], {}, {"email": "a@b.com"}])
+    def test_non_string_email_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: 123 gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+test/test_create_user_email_regression.py:26: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+no database to clean up
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'strip'
+_____________________ test_non_string_email_rejected[1.5] ______________________
+
+email = 1.5
+
+    @pytest.mark.parametrize("email", [123, 0, 1.5, None, True, False, [], ["a@b.com"], {}, {"email": "a@b.com"}])
+    def test_non_string_email_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: 1.5 gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+test/test_create_user_email_regression.py:26: AssertionError
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'float' object has no attribute 'strip'
+_____________________ test_non_string_email_rejected[True] _____________________
+
+email = True
+
+    @pytest.mark.parametrize("email", [123, 0, 1.5, None, True, False, [], ["a@b.com"], {}, {"email": "a@b.com"}])
+    def test_non_string_email_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: True gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+test/test_create_user_email_regression.py:26: AssertionError
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'bool' object has no attribute 'strip'
+____________________ test_non_string_email_rejected[email7] ____________________
+
+email = ['a@b.com']
+
+    @pytest.mark.parametrize("email", [123, 0, 1.5, None, True, False, [], ["a@b.com"], {}, {"email": "a@b.com"}])
+    def test_non_string_email_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: ['a@b.com'] gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+test/test_create_user_email_regression.py:26: AssertionError
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'strip'
+____________________ test_non_string_email_rejected[email9] ____________________
+
+email = {'email': 'a@b.com'}
+
+    @pytest.mark.parametrize("email", [123, 0, 1.5, None, True, False, [], ["a@b.com"], {}, {"email": "a@b.com"}])
+    def test_non_string_email_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: {'email': 'a@b.com'} gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+test/test_create_user_email_regression.py:26: AssertionError
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'strip'
+_________________ test_email_without_at_rejected[plainaddress] _________________
+
+email = 'plainaddress'
+
+    @pytest.mark.parametrize("email", ["", " ", "plainaddress", "user.example.com", "\x00", "ü" * 100, "user at example.com", "0"])
+    def test_email_without_at_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: 'plainaddress' gave 503
+E       assert 503 == 400
+E        +  where 503 = <WrapperTestResponse streamed [503 SERVICE UNAVAILABLE]>.status_code
+
+test/test_create_user_email_regression.py:33: AssertionError
+_______________ test_email_without_at_rejected[user.example.com] _______________
+
+email = 'user.example.com'
+
+    @pytest.mark.parametrize("email", ["", " ", "plainaddress", "user.example.com", "\x00", "ü" * 100, "user at example.com", "0"])
+    def test_email_without_at_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: 'user.example.com' gave 503
+E       assert 503 == 400
+E        +  where 503 = <WrapperTestResponse streamed [503 SERVICE UNAVAILABLE]>.status_code
+
+test/test_create_user_email_regression.py:33: AssertionError
+_____________________ test_email_without_at_rejected[\x00] _____________________
+
+email = '\x00'
+
+    @pytest.mark.parametrize("email", ["", " ", "plainaddress", "user.example.com", "\x00", "ü" * 100, "user at example.com", "0"])
+    def test_email_without_at_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: '\x00' gave 503
+E       assert 503 == 400
+E        +  where 503 = <WrapperTestResponse streamed [503 SERVICE UNAVAILABLE]>.status_code
+
+test/test_create_user_email_regression.py:33: AssertionError
+_ test_email_without_at_rejected[\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc] _
+
+email = 'üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü'
+
+    @pytest.mark.parametrize("email", ["", " ", "plainaddress", "user.example.com", "\x00", "ü" * 100, "user at example.com", "0"])
+    def test_email_without_at_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: 'üüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüüü' gave 503
+E       assert 503 == 400
+E        +  where 503 = <WrapperTestResponse streamed [503 SERVICE UNAVAILABLE]>.status_code
+
+test/test_create_user_email_regression.py:33: AssertionError
+_____________ test_email_without_at_rejected[user at example.com] ______________
+
+email = 'user at example.com'
+
+    @pytest.mark.parametrize("email", ["", " ", "plainaddress", "user.example.com", "\x00", "ü" * 100, "user at example.com", "0"])
+    def test_email_without_at_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: 'user at example.com' gave 503
+E       assert 503 == 400
+E        +  where 503 = <WrapperTestResponse streamed [503 SERVICE UNAVAILABLE]>.status_code
+
+test/test_create_user_email_regression.py:33: AssertionError
+______________________ test_email_without_at_rejected[0] _______________________
+
+email = '0'
+
+    @pytest.mark.parametrize("email", ["", " ", "plainaddress", "user.example.com", "\x00", "ü" * 100, "user at example.com", "0"])
+    def test_email_without_at_rejected(email):
+        response = post_user({**VALID, "email": email})
+>       assert response.status_code == 400, f"{email!r} gave {response.status_code}"
+E       AssertionError: '0' gave 503
+E       assert 503 == 400
+E        +  where 503 = <WrapperTestResponse streamed [503 SERVICE UNAVAILABLE]>.status_code
+
+test/test_create_user_email_regression.py:33: AssertionError
+_____________________ test_non_object_body_rejected[body0] _____________________
+
+body = [1, 2]
+
+    @pytest.mark.parametrize("body", [[1, 2], [], 123, 1.5, None , True, "just a string"]) #The None value is a regression test for a raw JSON null body; as json=None would send no body at all, which is not the same as sending a null body.
+    def test_non_object_body_rejected(body):
+        response = post_user(body)
+>       assert response.status_code == 400, f"{body!r} gave {response.status_code}"
+E       AssertionError: [1, 2] gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+test/test_create_user_email_regression.py:72: AssertionError
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+______________________ test_non_object_body_rejected[123] ______________________
+
+body = 123
+
+    @pytest.mark.parametrize("body", [[1, 2], [], 123, 1.5, None , True, "just a string"]) #The None value is a regression test for a raw JSON null body; as json=None would send no body at all, which is not the same as sending a null body.
+    def test_non_object_body_rejected(body):
+        response = post_user(body)
+>       assert response.status_code == 400, f"{body!r} gave {response.status_code}"
+E       AssertionError: 123 gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+test/test_create_user_email_regression.py:72: AssertionError
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'get'
+______________________ test_non_object_body_rejected[1.5] ______________________
+
+body = 1.5
+
+    @pytest.mark.parametrize("body", [[1, 2], [], 123, 1.5, None , True, "just a string"]) #The None value is a regression test for a raw JSON null body; as json=None would send no body at all, which is not the same as sending a null body.
+    def test_non_object_body_rejected(body):
+        response = post_user(body)
+>       assert response.status_code == 400, f"{body!r} gave {response.status_code}"
+E       AssertionError: 1.5 gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+test/test_create_user_email_regression.py:72: AssertionError
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'float' object has no attribute 'get'
+_____________________ test_non_object_body_rejected[True] ______________________
+
+body = True
+
+    @pytest.mark.parametrize("body", [[1, 2], [], 123, 1.5, None , True, "just a string"]) #The None value is a regression test for a raw JSON null body; as json=None would send no body at all, which is not the same as sending a null body.
+    def test_non_object_body_rejected(body):
+        response = post_user(body)
+>       assert response.status_code == 400, f"{body!r} gave {response.status_code}"
+E       AssertionError: True gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+test/test_create_user_email_regression.py:72: AssertionError
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'bool' object has no attribute 'get'
+_________________ test_non_object_body_rejected[just a string] _________________
+
+body = 'just a string'
+
+    @pytest.mark.parametrize("body", [[1, 2], [], 123, 1.5, None , True, "just a string"]) #The None value is a regression test for a raw JSON null body; as json=None would send no body at all, which is not the same as sending a null body.
+    def test_non_object_body_rejected(body):
+        response = post_user(body)
+>       assert response.status_code == 400, f"{body!r} gave {response.status_code}"
+E       AssertionError: 'just a string' gave 500
+E       assert 500 == 400
+E        +  where 500 = <WrapperTestResponse streamed [500 INTERNAL SERVER ERROR]>.status_code
+
+test/test_create_user_email_regression.py:72: AssertionError
+------------------------------ Captured log call -------------------------------
+ERROR    server:app.py:838 Exception on /api/create-user [POST]
+Traceback (most recent call last):
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/tmp/claude-1000/-home-cosma-Documents-School-group01/7be455ea-6c37-4346-b102-2280ec53da6a/scratchpad/before_fuzzfix/server/src/server.py", line 237, in create_user
+    email = (payload.get("email") or "").strip().lower()
+             ^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+=============================== warnings summary ===============================
+../../../../../../../home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/pgpy/constants.py:5
+  /home/cosma/Documents/School/group01/venv/lib64/python3.14/site-packages/pgpy/constants.py:5: DeprecationWarning: imghdr was removed in Python 3.13. Please be aware that you are currently NOT using standard 'imghdr', but instead a separately installed 'standard-imghdr'.
+    import imghdr
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================ Hypothesis Statistics =============================
+=========================== short test summary info ============================
+FAILED test/test_create_user_email_regression.py::test_non_string_email_rejected[123]
+FAILED test/test_create_user_email_regression.py::test_non_string_email_rejected[1.5]
+FAILED test/test_create_user_email_regression.py::test_non_string_email_rejected[True]
+FAILED test/test_create_user_email_regression.py::test_non_string_email_rejected[email7]
+FAILED test/test_create_user_email_regression.py::test_non_string_email_rejected[email9]
+FAILED test/test_create_user_email_regression.py::test_email_without_at_rejected[plainaddress]
+FAILED test/test_create_user_email_regression.py::test_email_without_at_rejected[user.example.com]
+FAILED test/test_create_user_email_regression.py::test_email_without_at_rejected[\x00]
+FAILED test/test_create_user_email_regression.py::test_email_without_at_rejected[\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc\xfc]
+FAILED test/test_create_user_email_regression.py::test_email_without_at_rejected[user at example.com]
+FAILED test/test_create_user_email_regression.py::test_email_without_at_rejected[0]
+FAILED test/test_create_user_email_regression.py::test_non_object_body_rejected[body0]
+FAILED test/test_create_user_email_regression.py::test_non_object_body_rejected[123]
+FAILED test/test_create_user_email_regression.py::test_non_object_body_rejected[1.5]
+FAILED test/test_create_user_email_regression.py::test_non_object_body_rejected[True]
+FAILED test/test_create_user_email_regression.py::test_non_object_body_rejected[just a string]
+================== 16 failed, 16 passed, 1 warning in 48.19s ===================
