@@ -302,7 +302,14 @@ def test_static_file_not_found():
     client = app.test_client()
     resp = client.get("/does-not-exist.html")
     assert resp.status_code == 404
-    
+
+def test_flask_builtin_static_route():
+    client = app.test_client()
+    response = client.get("/static/style.css")
+    assert response.status_code == 200
+    assert response.mimetype == "text/css"
+    response.close()
+
     
     
 #GET / should serve the frontend index.html
@@ -343,3 +350,4 @@ def test_get_version_returns_pdf(version_app):
     assert response.mimetype == "application/pdf"
     assert response.data.startswith(b"%PDF")
     response.close()
+
