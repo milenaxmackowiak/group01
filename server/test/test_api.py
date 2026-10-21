@@ -232,6 +232,27 @@ def test_create_user_missing_password():
     assert response.status_code == 400
     data = response.get_json()
     assert "error" in data
+
+
+def test_get_watermarking_methods_public():
+    client = app.test_client()
+    response = client.get('/api/get-watermarking-methods')
+    assert response.status_code == 200
+    
+    data = response.get_json()
+    assert isinstance(data, (dict, list))
+    # Checking if one of the method is present in the list
+    if isinstance(data, list):
+        assert "watermark-milena" in data
+
+#test to read a certain watermark by an authenticated user
+def test_read_watermark_id():
+    client = app.test_client()
+    
+    testuser = client.post("/api/create-user", json={"login": "readwm_user", "password": "test-pw", "email": "user@readwmtest.com"})
+    assert testuser.status_code == 201
+
+    login = client.post("/api/login", json={"email": "user@readwmtest.com", "password": "test-pw"})
     
     
 def test_get_document():
@@ -250,6 +271,21 @@ def test_get_document():
             headers=headers,
             content_type="multipart/form-data",
         )
+
+    assert upload.status_code == 201
+    doc_id = upload.get_json()["id"]
+
+    watermark = client.post(
+        f"/api/create-watermark/{doc_id}",
+        json={"method": "watermark-milena", "key": "testkey", "secret": "testsecret", "intended_for": "recipient"},
+        headers=headers,
+    )
+    assert watermark.status_code == 200
+
+    # Reading the watermark
+    resp = client.post(f"/api/read-watermark/{doc_id}", json={"key": "testkey"}, headers=headers)
+    assert resp.status_code == 200
+    assert resp.get_json()["secret"] == "testsecret"
     assert upload.status_code == 201
     doc_id = upload.get_json()["id"]
 
@@ -266,11 +302,6 @@ def test_static_file_not_found():
     client = app.test_client()
     resp = client.get("/does-not-exist.html")
     assert resp.status_code == 404
-    
-    
-    
-    
-   
     
     
     
