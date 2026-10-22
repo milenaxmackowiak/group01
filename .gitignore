@@ -214,3 +214,10 @@ server/rmap_test_client.py
 server/server_pub.asc
 server/testclient_priv.asc
 server/test_delivered.pdf
+
+# local-only notes (kept off GitHub)
+artifacts/niclas/bugs_and_fixes.md
+artifacts/niclas/niclas_watermark_demo.py
+artifacts/niclas/niclas_watermark_demo_output.txt
+artifacts/niclas/niclas_watermark_exploration.txt
+artifacts/niclas/niclas_watermark_tests.txt

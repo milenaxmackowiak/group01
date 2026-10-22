@@ -1,4 +1,5 @@
 import pytest
+import io
 from server import app
 from pathlib import Path
 import hashlib
@@ -272,9 +273,23 @@ def test_read_watermark_id():
     )
     assert watermark.status_code == 201
 
-    resp = client.post(f"/api/read-watermark/{doc_id}", json={"method": "watermark-milena", "key": "testkey"}, headers=headers)
+    #create-watermark stores the watermarked pdf as a separate version, the original document stays untouched,
+    #so download the version and upload it as a new document (like a leaked copy) before reading it
+    version = client.get(f"/api/get-version/{watermark.get_json()['link']}")
+    assert version.status_code == 200
+    watermarked_upload = client.post(
+        "/api/upload-document",
+        data={"file": (io.BytesIO(version.data), "watermarked.pdf")},
+        headers=headers,
+        content_type="multipart/form-data",
+    )
+    version.close()
+    assert watermarked_upload.status_code == 201
+    watermarked_id = watermarked_upload.get_json()["id"]
+
+    resp = client.post(f"/api/read-watermark/{watermarked_id}", json={"method": "watermark-milena", "key": "testkey"}, headers=headers)
     assert resp.status_code == 201
-    assert resp.get_json()["secret"] == "testsecret"    
+    assert resp.get_json()["secret"] == "testsecret"
     
 def test_get_document():
     client = app.test_client()
