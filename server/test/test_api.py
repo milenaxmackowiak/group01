@@ -331,8 +331,16 @@ def test_index_route():
 #list-all-versions needs a login token
 def test_list_all_versions_requires_auth():
     client = app.test_client()
-    response = client.get("/api/list-all-versions")
-    assert response.status_code == 401
+    testuser = client.post("/api/create-user", json={"login": "listall_user", "password": "test-pw", "email": "user@listalltest.com",})
+    assert testuser.status_code == 201
+
+    login = client.post("/api/login", json={"email": "user@listalltest.com", "password": "test-pw",})
+    token = login.get_json()["token"]
+    headers = {"Authorization": f"Bearer {token}"}
+
+    response = client.get("/api/list-all-versions", headers=headers)
+    assert response.status_code == 200
+    assert "versions" in response.get_json()
 
 #app with a small sqlite Versions table instead of mysql, so get-version can run without a database server
 @pytest.fixture

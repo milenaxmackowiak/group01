@@ -17,4 +17,4 @@ def clean_up_test_data():
         return  # no real database here (like when running on laptop)
     engine = testing_db()
     with engine.begin() as conn:
-        conn.execute(text("DELETE FROM Users WHERE email LIKE '%@deletetest.com' OR email LIKE '%@versiontest.com' OR email LIKE '%@samename.com' OR email LIKE '%@testpath.com' OR email LIKE '%@testbadusername.com' OR email LIKE '%@testescape.com' OR email LIKE '%@getdocumenttest.com' OR email LIKE '%@readwmtest.com'"))
+        conn.execute(text("DELETE FROM Users WHERE email LIKE '%@deletetest.com' OR email LIKE '%@versiontest.com' OR email LIKE '%@samename.com' OR email LIKE '%@testpath.com' OR email LIKE '%@testbadusername.com' OR email LIKE '%@testescape.com' OR email LIKE '%@getdocumenttest.com' OR email LIKE '%@readwmtest.com' OR email LIKE '%@listalltest.com'"))
