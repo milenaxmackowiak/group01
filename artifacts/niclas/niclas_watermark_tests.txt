@@ -1,0 +1,16 @@
+# Niclas watermark tests (test_watermarking_all_methods.py, niclas-watermark cases) + coverage
+# Date: 2026-10-17T00:00:45+02:00
+
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.6.0 -- /home/cosma/Documents/School/group01/venv/bin/python
+hypothesis profile 'default'
+rootdir: /home/cosma/Documents/School/group01/server
+configfile: pyproject.toml
+plugins: hypothesis-6.169.0
+collecting ... collected 15 items / 12 deselected / 3 selected
+
+test/test_watermarking_all_methods.py::TestAllWatermarkingMethods::test_is_watermark_applicable[niclas-watermark] PASSED [ 33%]
+test/test_watermarking_all_methods.py::TestAllWatermarkingMethods::test_add_watermark_and_shape[niclas-watermark] PASSED [ 66%]
+test/test_watermarking_all_methods.py::TestAllWatermarkingMethods::test_read_secret_roundtrip[niclas-watermark] PASSED [100%]
+
+======================= 3 passed, 12 deselected in 0.20s =======================

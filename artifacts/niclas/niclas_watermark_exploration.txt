@@ -1,0 +1,9 @@
+# Exploration scripts written while building niclas-watermark
+
+## python test/test_fernet.py  (what Fernet raises on a bad token)
+InvalidToken : 
+
+## python test/test_missing_key.py  (what xref_get_key returns when NWatermark is missing, on Group_1.pdf)
+No exception raised.
+kind = null
+value = null
